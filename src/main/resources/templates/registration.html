@@ -7,19 +7,46 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    
+    <style>
+	    img {
+	    display: block;
+	    margin-left: auto;
+	    margin-right: auto;
+		}
+    </style>
+    
 </head>
 <body style="background-color:#EEEDEF">
-<form th:action="@{/logout}" method="get">
-    <button class="btn btn-md btn-warning btn-block" type="Submit" style="background-color: #771D5F" >Cerrar sesión</button>
-</form>
+
+
+		<nav class="navbar navbar-default" style="background-color: #EBE7EC">
+		    <div  class="container" style="background-color: #EBE7EC">
+		        <div class="navbar-header" id="nav">
+		            <a class="navbar-brand"  style="color:#770e77;font-size:20px" href="#feedback"> <strong>Registro de Nuevo Usuario</strong> </a>
+		        </div>
+		            <ul class="nav navbar-nav navbar-right">
+    					  <li><a href="/logout" th:action="@{/logout}"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión </a></li>
+    				</ul>
+		    </div>
+		</nav>
+		
+		<br>
+
+	   		 <img  src="http://grupooesia.com/wp-content/uploads/2015/11/logo_oesia_011.png"  width="140" height="80" align="middle"> 
+
+
 
 <div class="container">
-    <div class="row">
+ 
+   <div class="row">
         <div class="col-md-6 col-md-offset-3">
+        
             <form autocomplete="off" action="#" th:action="@{/registration}"
                   th:object="${user}" method="post" class="form-horizontal"
                   role="form">
-                <h2 style="color:#771D5F">Registro de Nuevo Usuario</h2>
+                          
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
