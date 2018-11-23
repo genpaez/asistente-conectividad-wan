@@ -1,5 +1,6 @@
 package com.oesia.controller;
 
+/*
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -10,11 +11,12 @@ public class IndexController {
 
     private final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
-    //@GetMapping("/")
+
     @GetMapping("/login")
     public String index() {
       //return "ajax";
-        return "login";
+        return "index";
     }
 
 }
+*/

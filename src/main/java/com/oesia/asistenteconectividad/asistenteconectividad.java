@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @ComponentScan(basePackages= {"com.oesia"})
-@EntityScan(basePackages = {"com.oesia.model"})
+@EntityScan(basePackages = {"com.oesia"})
 @EnableJpaRepositories(basePackages = {"com.oesia.model"})
 @SpringBootApplication
 public class asistenteconectividad {

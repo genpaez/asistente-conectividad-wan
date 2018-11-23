@@ -48,6 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 	.antMatchers("/").permitAll()
                 	.antMatchers("/index").hasAuthority("USUARIO")
+                	.antMatchers("/index/").denyAll()
                 	.antMatchers("/registration").hasAuthority("ADMIN").anyRequest()
                 	.authenticated()
 
@@ -72,7 +73,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/js/main.js", "/images/**");
     }
 
 }

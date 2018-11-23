@@ -24,7 +24,7 @@ $(document).ready(function () {
 });
 
 
-
+ 
 
 
 function ajax_cliente() {      // onchange en select boxes
@@ -62,8 +62,7 @@ function ajax_cliente() {      // onchange en select boxes
 function ajax_ciudad(cliente) {      // onchange en select boxes
 	var search = {}
     search["cliente"] = cliente;
-//	event.preventDefault();
-//	$("#bth-pruebasmpls").prop("disabled", true);  // <<--
+
 	
     $.ajax({
     	type: "POST",

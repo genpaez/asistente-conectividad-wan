@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
-  //  @Autowired
+    @Autowired
     private UserService userService;
 
     @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
@@ -78,6 +78,7 @@ public class LoginController {
         return modelAndView;
     }
     
+    
 
     @RequestMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
@@ -91,9 +92,10 @@ public class LoginController {
        //  if (request.isUserInRole("USUARIO")) 
         	 
     	if (tipoUsuario.contentEquals("USUARIO")){
-             return "redirect:/index/";
+    		
+             return "redirect:/index";
          }
-         return "redirect:/registration/";
+         return "redirect:/registration";
      }
     
     
