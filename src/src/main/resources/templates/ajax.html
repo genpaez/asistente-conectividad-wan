@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="makeup.css" /> 
+
+<head>
+    <title>Asistente Conectividad</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header" id="nav">
+            <a class="navbar-brand" href="/index" style="color:#990099">Asistente Conectividad WAN</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="min-height: 500px">
+
+    <div class="starter-template">
+
+        <div id="feedback"></div>
+
+        <form class="form-horizontal" id="search-form">
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label">username</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="username"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" id="bth-search"
+                            class="btn btn-primary btn-lg"> test xhr
+                    </button>
+                </div>
+            </div>
+            
+           <div class="form-group">
+             <label for="sel1" style="color:#660066"> Cliente </label > 
+             <select class="form-control" id="cliente"  onchange="ajax_ciudad()">
+             <option> Seleccione un cliente... </option>
+             </select>
+           </div>
+            
+            <div class="form-group">
+             <label for="sel2" style="color:#660066"> Ciudad </label> 
+             <select class="form-control" id="ciudad" onchange="ajax_sede()">
+             <option> Seleccione una ciudad... </option>
+             </select>
+           </div>
+           
+           <div class="form-group">
+             <label for="sel3" style="color:#660066"> Sede </label> 
+             <select class="form-control" id="sede" onchange="ajax_canal()">
+             <option> Seleccione una sede... </option>
+             </select>
+           </div>
+             
+            <div class="form-group">
+             <label for="sel4" style="color:#660066"> Canal </label> 
+             <select class="form-control" id="canal" onchange="ajax_vias()">
+             <option> Seleccione un canal... </option>
+             </select>
+           </div>
+            
+        </form>
+        
+        
+        
+        <div id="vias">
+        <p>Aquí carga la información del canal</p>
+        </div>
+        
+        
+        <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" id="bth-pruebasmpls"
+                            class="btn btn-primary btn-lg">Ejecutar Pruebas
+                    </button>
+                </div>
+         </div>
+        
+        
+        <div id="mpls_response">
+        <p>Aquí carga la salida de los comandos de conectividad</p>
+        </div>
+        
+        
+
+    </div>
+
+</div>
+
+<div class="container">
+    <footer>
+        <strong>
+            © <a href="http://www.oesia.com.co" style="color:#660066">Oesia Networks Colombia</a> 
+        </strong>
+    </footer>
+</div>
+
+<script type="text/javascript"
+        src="webjars/jquery/2.2.4/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/main.js"></script>
+
+</body>
+</html>
