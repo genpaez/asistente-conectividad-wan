@@ -33,15 +33,15 @@ public class PortRadius {
 		this.loopback = loopback;
 	}
 
-	public void conectar() throws IOException, InterruptedException{
+	public void conectar() throws IOException, InterruptedException, JSchException{
 		 sesionA();
 		 sesionB();
 	 }
 	
 	
-	 public void sesionA(){
+	 public void sesionA() throws JSchException{
 
-		 try {
+
 			sessionA = jSch.getSession(usernameradius, hostA, 2224);  
 			Properties config = new Properties(); 
 	        config.put("StrictHostKeyChecking", "no");
@@ -49,7 +49,7 @@ public class PortRadius {
 	        sessionA.setPassword(passwordradius);
 	        forwardedPort = 23;                     //  **** Puerto local ! ****
         	sessionA.setPortForwardingL(forwardedPort, loopback, 22);	// puerto para tunel hacia hostB
-	        sessionA.connect();
+	        sessionA.connect(25000);
 	        sessionA.openChannel("direct-tcpip"); //***************** // Shell/Exc/TCP 
 	        
 	        
@@ -58,9 +58,6 @@ public class PortRadius {
 	        		
 	        }
 			
-		} catch (JSchException e) {
-			e.printStackTrace();
-		}
 	 }
 	
 	 
@@ -75,7 +72,7 @@ public class PortRadius {
 		        config.put("StrictHostKeyChecking", "no");
 		        sessionB.setConfig(config);
 		        sessionB.setPassword(passwordrouter);
-				sessionB.connect();
+				sessionB.connect(25000);
 				
 		      if(sessionB.isConnected()) {
 		         System.out.println("Connected host B!"); 
@@ -91,11 +88,17 @@ public class PortRadius {
 	
 
 	
-	 public List<String> execute(List<String> comandos) throws IOException, JSchException, InterruptedException{
+	 public List<String> execute(List<String> comandos) throws IOException, InterruptedException{
 			
 			  List<String> respuesta = new ArrayList<String>();
 			  
-			  Channel channel = sessionB.openChannel("shell");
+			  Channel channel = null;
+					try {
+						channel = sessionB.openChannel("shell");
+					} catch (JSchException e1) {
+						respuesta.add("Error de conexión con Router Cliente: " + e1.getMessage());
+						return respuesta;
+					}
 			  InputStream in = channel.getInputStream();
 			  BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			  OutputStream out = channel.getOutputStream();
@@ -103,7 +106,13 @@ public class PortRadius {
 
 			  
 			  
-			  channel.connect();
+					try {
+						channel.connect();
+					} catch (JSchException e1) {
+						respuesta.add("Error para ejecutar comandos en Router: " + e1.getMessage());
+						return respuesta;
+					}
+			  
 			  if(channel.isConnected()) { 
 
 				  for(String comando : comandos) {         // recorre los comandos

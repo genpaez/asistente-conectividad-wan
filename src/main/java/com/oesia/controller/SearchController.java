@@ -9,6 +9,7 @@ import com.oesia.model.Compositor;
 import com.oesia.model.Executor;
 import com.oesia.model.MyRepository;
 import com.oesia.model.Pe;
+import com.oesia.model.PeRepository;
 import com.oesia.model.PortFR;
 import com.oesia.model.PortRadius;
 import com.oesia.model.SearchCriteria;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +52,8 @@ public class SearchController {
 	private ClienteRepository clienteRepository; 
 	@Autowired
 	private MyRepository myRepository; 
+	@Autowired
+	private PeRepository peRepository;
 	@Autowired
 	private CiudadRepository ciudadRepository;
 	@Autowired
@@ -89,41 +93,59 @@ public class SearchController {
     }
     
     @PostMapping(path = "/api/vias")
-    public Canal findVias(@RequestBody Canal canal){
+    public  @ResponseBody List<Object> findVias(@RequestBody Canal canal){
 		
+    	List<Object> respuesta =  new ArrayList<Object>();
     	Canal vias = myRepository.findVias(canal.getId());
-    	return vias;
+    	Pe pe = peRepository.findPe(vias.getPe());
+
+
+        	respuesta.add(vias);
+        	respuesta.add(pe);
+    		return respuesta;	
     }
-    
-    @PostMapping(path = "/api/pe")
-    public Canal findPe(@RequestBody Pe pe){
-		
-    	Canal vias = myRepository.findPe(pe.getPe_id());
-    	return vias;
-    }
-    
     
     
     
     @PostMapping(path = "/api/pruebasmpls")
-    public List<String> pruebasMpls(@RequestBody Canal canal) throws IOException, JSchException, InterruptedException{
+    public List<String> pruebasMpls(@RequestBody String[] vias1) throws IOException, InterruptedException{
     	
-    	PortFR man = new PortFR(canal.getIppe()); // prueba, no está mapeado a la tabla
-        Compositor myComposer = new Compositor();  
-        man.conectar();
-
-    	List<String> comandos = myComposer.crearComandos(canal.getNombrepe(), canal.getVprn(), canal.getIpwan_pe(), canal.getIpwan_router(), canal.getPuertope(), canal.getEnrutamiento());
-    	List<String> respuestape = man.execute(comandos);	
+    	List<String> respuesta = new ArrayList<String>();
+    	Canal vias = myRepository.findViasS(vias1[0]);    // RECIBE ARREGLO DE STRING {Canal, Pe}
+    	Pe pe = peRepository.findByIP(vias1[1]); 
+    	
+    	String nodo = pe.getIp_pe();
+    	PortFR man = new PortFR(nodo); 
+    	Compositor myComposer = new Compositor(); 
+    	
+    	try {
+			man.conectar();
+		} catch (JSchException e) {
+			respuesta.add("Error de conexión con MPLS: " + e.getMessage());
+			return respuesta;
+		}
+    	
+    	List<String> comandos = myComposer.crearComandos(pe.getNombre_pe(), vias.getVprn(), vias.getIpwan_pe(), vias.getIpwan_router(), vias.getPuertope(), vias.getEnrutamiento());
+        respuesta = man.execute(comandos);
     	man.close();
-    	return respuestape;
+    	
+    	return respuesta;
+    	
     }
     
     @PostMapping(path = "/api/pruebasrouter")
-    public List<String> pruebasRouter(@RequestBody Canal canal) throws IOException, JSchException, InterruptedException{
+    public List<String> pruebasRouter(@RequestBody Canal canal) throws IOException, InterruptedException{
     	
+    	List<String> respuesta = new ArrayList<String>();
     	PortRadius man = new PortRadius(canal.getLoopback()); 
     	Compositor myComposer = new Compositor(); 
-    	man.conectar();
+    	
+    	try {
+			man.conectar();
+		} catch (JSchException e) {
+			respuesta.add("Error de conexión con Servidor Radius: " + e.getMessage());
+			return respuesta;
+		}
     	
     	List<String> comandos = myComposer.comandosRouter(canal.getEnrutamiento());
         List<String> respuestarouter = man.execute(comandos);

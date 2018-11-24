@@ -18,9 +18,6 @@ public class Canal { //Serializable*
 	int id;
 	@Column(name = "servpnip_pe")
     int pe;
-	String ippe = null;
-	String nombrepe = null;
-
 	@Column(name = "servpnip_servicio") // Llave foranea
     String servicio;
 	@Column(name = "servpnip_tipo_enlace")
@@ -50,18 +47,7 @@ public class Canal { //Serializable*
     String puertoDslam;
     
     
-	public String getNombrepe() {
-		return nombrepe;
-	}
-	public void setNombrepe(String nombrepe) {
-		this.nombrepe = nombrepe;
-	}
-	public String getIppe() {
-		return ippe;
-	}
-	public void setIppe(String ippe) {
-		this.ippe = ippe;
-	}
+
 	public int getId() {
 		return id;
 	}

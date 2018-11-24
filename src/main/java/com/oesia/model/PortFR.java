@@ -18,7 +18,7 @@ import com.jcraft.jsch.*;
 public class PortFR {  // conexión mpls y ejecución.
 	
 	private  String username = "opegpae1";
-	private  String passwordA = "Telefonica18*", passwordB = "FN5ihAJo";
+	private  String passwordA = "Baudelaire18*", passwordB = "FN5ihAJo";
 	private  String hostA = "10.30.4.165", hostB;
 	private  JSch jSch = new JSch();
 	private  int forwardedPort;
@@ -31,7 +31,7 @@ public class PortFR {  // conexión mpls y ejecución.
 		 this.hostB = hostB;
 	}
 
-	public void conectar() throws IOException, InterruptedException{
+	public void conectar() throws IOException, InterruptedException, JSchException{
 		 sesionA();
 		 sesionB();
 	 }
@@ -46,7 +46,7 @@ public class PortFR {  // conexión mpls y ejecución.
 	        sessionA.setPassword(passwordA);
 	        forwardedPort = 2222;                //  **** Puerto local ! ****
         	sessionA.setPortForwardingL(forwardedPort, hostB, 22);	// puerto para tunel hacia hostB
-	        sessionA.connect(20000);
+	        sessionA.connect(10000);
 	        sessionA.openChannel("direct-tcpip"); //***************** // Shell/Exc/TCP 
 	        
 	        
@@ -62,44 +62,48 @@ public class PortFR {  // conexión mpls y ejecución.
 	 
 	 
 	 
-	 public void sesionB() throws IOException, InterruptedException {
+	 public void sesionB() throws IOException, InterruptedException, JSchException {
 		
-
-			try {
 				sessionB = jSch.getSession(username, "localhost", forwardedPort);
-
 				Properties config = new Properties(); 
 		        config.put("StrictHostKeyChecking", "no");
 		        sessionB.setConfig(config);
 		        sessionB.setPassword(passwordB);
-				sessionB.connect(20000);
+				sessionB.connect(10000);
 				
 		      if(sessionB.isConnected()) {
-		         System.out.println("Connected host B!"); 
-		            
+		         System.out.println("Connected host B!"); 		            
 			  }
-		    } catch (JSchException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
 	        	        
 	 }
 	 
-	 
 	
-	public List<String> execute(List<String> comandos) throws IOException, JSchException, InterruptedException{
+	public List<String> execute(List<String> comandos) throws IOException, InterruptedException{
 		
 		  List<String> respuesta = new ArrayList<String>();
 		  
-		  Channel channel = sessionB.openChannel("shell");
+		  Channel channel = null;
+				try {
+					channel = sessionB.openChannel("shell");   // obtener canal
+					} catch (JSchException e1) {
+						e1.printStackTrace();
+						respuesta.add("Error de conexión con PE: " + e1.getMessage());
+						return respuesta;
+					}
 		  InputStream in = channel.getInputStream();
 		  BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		  OutputStream out = channel.getOutputStream();
 		  BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out));
-
 		  
-		  
-		  channel.connect();
+		        try {
+					channel.connect();    // conectar canal
+					} catch (JSchException e1) {
+						e1.printStackTrace();
+			    	    respuesta.add("Error al ejecutar comandos en PE: " + e1.getMessage());
+						return respuesta;
+					}
+				  		  
 		  if(channel.isConnected()) { 
 
 			  for(String comando : comandos) {         // recorre los comandos
@@ -121,26 +125,6 @@ public class PortFR {  // conexión mpls y ejecución.
 		    	    }
 		    	}, 6000);
 			  
-			  /*
-			  String myCommand = ("show service id 500151940 interface 10.20.30.1 \n \n  \n");
-			  bw.write(myCommand);
-			  Thread.sleep(100);
-			  String myCommand2 = ("show router 500151940 bgp summary neighbor 10.20.30.2 \n \n \n");
-			  bw.write(myCommand2);
-			  Thread.sleep(100);
-			  String myCommand3 = ("show port description 1/2/1  \n \n \n");
-			  bw.write(myCommand3);
-			  Thread.sleep(100);
-			  String myCommand5 = ("show port 1/2/1 detail \n \n");
-			  bw.write(myCommand5);
-			  Thread.sleep(100);
-			  String myCommand6 = ("x \n \n");
-			  bw.write(myCommand6);
-		      String myCommand4 = ("ping 10.20.30.2 router 500151940 rapid count 5 \n \n \n");
-			  bw.write(myCommand4);
-			  Thread.sleep(100);
-			  bw.flush();
-			  */
 		  }
 		  
 

@@ -4,6 +4,8 @@ $(document).ready(function () {
         
         event.preventDefault();
         //stop submit the form, we will post it manually.
+        $('#boton-pruebasrouter').attr('disabled','disabled');
+        $('#boton-pruebasrouter').css('cursor','wait');
         $('#boton-pruebasmpls').attr('disabled','disabled');
         $('#boton-pruebasmpls').css('cursor','wait');
         event.preventDefault();
@@ -17,6 +19,8 @@ $(document).ready(function () {
         //stop submit the form, we will post it manually.
         $('#boton-pruebasrouter').attr('disabled','disabled');
         $('#boton-pruebasrouter').css('cursor','wait');
+        $('#boton-pruebasmpls').attr('disabled','disabled');
+        $('#boton-pruebasmpls').css('cursor','wait');
         ajax_pruebasrouter();
 
     }); 
@@ -24,7 +28,7 @@ $(document).ready(function () {
 });
 
 
- 
+
 
 
 function ajax_cliente() {      // onchange en select boxes
@@ -54,15 +58,12 @@ function ajax_cliente() {      // onchange en select boxes
   	           });
     		});
     
-//    $("#bth-pruebasmpls").prop("disabled", false);
-    
 }
 
 
 function ajax_ciudad(cliente) {      // onchange en select boxes
 	var search = {}
     search["cliente"] = cliente;
-
 	
     $.ajax({
     	type: "POST",
@@ -80,8 +81,6 @@ function ajax_ciudad(cliente) {      // onchange en select boxes
   	            //       dropdown.append('<option value="' + v.id + '">' + v.name + '</option>'); Notación
   	           });
     		});
-    
-//    $("#bth-pruebasmpls").prop("disabled", false);
 }
 
 
@@ -117,13 +116,8 @@ function ajax_canal(sede) {      // onchange en select boxes
 	
 	
 	var canal = {}
-	//canal["cliente"] = cliente;
-	//canal["ciudad"] = ciudad;
 	canal["servicio_sede"] = sede;
-//	var search = {}
-//    search["nombre"] = $("#username").val();	
-//	event.preventDefault();
-//	$("#bth-pruebasmpls").prop("disabled", true);  // <<--
+
 	
     $.ajax({
     	type: "POST",
@@ -138,7 +132,6 @@ function ajax_canal(sede) {      // onchange en select boxes
     			$('#canal').append('<option value="">' + 'Seleccione un canal...' + '</option>');
     			$.each(data, function(i, optionHtml){	
   	            $('#canal').append('<option value="' + optionHtml[0] + '">' + optionHtml[1] + '</option>');  // Recorre array e inserta opciones
-  	           //       dropdown.append('<option value="' + v.id + '">' + v.name + '</option>'); Notación
   	           });
     		});
     
@@ -151,17 +144,6 @@ function ajax_vias(idcanal) {      // onchange en select boxes
 	var vias = {}
 	vias["id"] = idcanal;
 	
-	var nombrepe;
-	var ippe;
-	
-//	vias["ciudad"] = ciudad;
-//	vias["sede"] = sede;
-//	vias["canal"] = canal;
-	
-//	var search = {}
-//    search["nombre"] = $("#username").val();	
-//	event.preventDefault();
-//	$("#bth-pruebasmpls").prop("disabled", true);  // <<--
 	
     $.ajax({
     	type: "POST",
@@ -176,77 +158,38 @@ function ajax_vias(idcanal) {      // onchange en select boxes
             $("#clipboardrouter").hide();
         		},
     		}).then(function(data) {
-    //			$('#nombrepe').html('');
-    //			$('#nombrepe').text(data.nombre_pe);
-    //			$('#ippe').html('');
-    //			$('#ippe').append(data.ip_pe);
     			$('#ipwanpe').html('');
-    			$('#ipwanpe').append(data.ipwan_pe);
+    			$('#ipwanpe').append(data[0].ipwan_pe);
     			$('#ipwanrouter').html('');
-    			$('#ipwanrouter').append(data.ipwan_router);
+    			$('#ipwanrouter').append(data[0].ipwan_router);
     			$('#puertope').html('');
-    			$('#puertope').append(data.puerto_pe);
+    			$('#puertope').append(data[0].puertope);
     			$('#enrutamiento').html('');
-    			$('#enrutamiento').append(data.enrutamiento);
+    			$('#enrutamiento').append(data[0].enrutamiento);
     			$('#routerwan').html('');
-    			$('#routerwan').append(data.ipwan_router);
+    			$('#routerwan').append(data[0].ipwan_router);
     			$('#loopback').html('');
-    			$('#loopback').append(data.loopback);
+    			$('#loopback').append(data[0].loopback);
     			$('#vprn').html('');
-    			$('#vprn').append(data.vprn);
-    			nombrepe = data.nombrepe;
-    			ippe = data.ippe;
+    			$('#vprn').append(data[0].vprn);
+    			$('#nombrepe').html('');
+    			$('#nombrepe').text(data[1].nombre_pe);
+    			$('#ippe').html('');
+    			$('#ippe').text(data[1].ip_pe);
     		});
     
-		//		$('#nombrepe').html('');
-		//		$('#nombrepe').text(data.nombre_pe);
-		//		$('#ippe').html('');
-		//		$('#ippe').append(data.ip_pe);
-    			ajax_pe(nombrepe, ippe); 
 }
-
-
-function ajax_pe(nombrepe, ippe){
-	
-	var pe = {}
-	pe["pe_id"] = ippe;
-	pe["pe_nombre"] = nombrepe;
-	
-    $.ajax({
-    	type: "POST",
-        contentType: "application/json",
-        url: "/api/pe",
-        data: JSON.stringify(pe),
-        dataType: 'json',
-        cache: false,
-        timeout: 600000,
-    		}).then(function(data) {
-    			$('#nombrepe').html('');
-    			$('#nombrepe').text(data.pe_nombre);
-    			$('#ippe').html('');
-    			$('#ippe').append(data.ippe);
-    		});	
-}
-
 
 
 function ajax_pruebasmpls() {     // boton pruebas mpls
 
-	var pruebampls = {}
-	pruebampls["nombre_pe"] = $('#nombrepe').text();
-	pruebampls["ip_pe"] = $('#ippe').text();
-	pruebampls["ipwan_pe"] = $('#ipwanpe').text();
-	pruebampls["vprn"] = $('#vprn').text();
-	pruebampls["ipwan_router"] = $('#ipwanrouter').text();
-	pruebampls["puerto_pe"] = $('#puertope').text();
-	pruebampls["enrutamiento"] = $('#enrutamiento').text();
-
+	var vias = [$('#canal').val(),  $('#ippe').text()];
 	
     $.ajax({
     	type: "POST",
         contentType: "application/json",
         url: "/api/pruebasmpls",
-        data: JSON.stringify(pruebampls),
+        data: JSON.stringify(vias),
         dataType: 'json',
         cache: false,
         timeout: 600000,
@@ -266,6 +209,8 @@ function ajax_pruebasmpls() {     // boton pruebas mpls
       	           });
     			$('#boton-pruebasmpls').removeAttr('disabled');
     			$('#boton-pruebasmpls').css('cursor','pointer');
+    			$('#boton-pruebasrouter').removeAttr('disabled'); 
+    			$('#boton-pruebasrouter').css('cursor','pointer');
     		});
 }
 
@@ -304,6 +249,8 @@ function ajax_pruebasrouter() {     // boton pruebas router
       	           });
     			$('#boton-pruebasrouter').removeAttr('disabled'); 
     			$('#boton-pruebasrouter').css('cursor','pointer');
+    			$('#boton-pruebasmpls').removeAttr('disabled');
+    			$('#boton-pruebasmpls').css('cursor','pointer');
     		});
 }
 
