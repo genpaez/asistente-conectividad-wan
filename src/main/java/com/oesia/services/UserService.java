@@ -1,5 +1,6 @@
 package com.oesia.services;
 
+import com.oesia.model.Conexion;
 import com.oesia.model.Role;
 import com.oesia.model.User;
 import com.oesia.model.RoleRepository;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+
+import javax.validation.Valid;
 
 @Service("userService")
 public class UserService {
@@ -38,5 +41,6 @@ public class UserService {
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepository.save(user);
     }
+
 
 }

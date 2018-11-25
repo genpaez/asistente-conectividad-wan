@@ -62,8 +62,9 @@ public class PortFR {  // conexión mpls y ejecución.
 	 
 	 
 	 
-	 public void sesionB() throws IOException, InterruptedException, JSchException {
+	 public void sesionB() throws IOException, InterruptedException {
 		
+			try {
 				sessionB = jSch.getSession(username, "localhost", forwardedPort);
 				Properties config = new Properties(); 
 		        config.put("StrictHostKeyChecking", "no");
@@ -71,11 +72,15 @@ public class PortFR {  // conexión mpls y ejecución.
 		        sessionB.setPassword(passwordB);
 				sessionB.connect(10000);
 				
-		      if(sessionB.isConnected()) {
-		         System.out.println("Connected host B!"); 		            
-			  }
-
-	        	        
+			      if(sessionB.isConnected()) {
+			         System.out.println("Connected host B!"); 		            
+				  }
+			      
+			    } catch (JSchException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+     	        
 	 }
 	 
 	

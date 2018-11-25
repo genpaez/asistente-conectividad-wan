@@ -4,8 +4,11 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import com.oesia.model.Conexion;
 import com.oesia.model.Role;
 import com.oesia.model.User;
+import com.oesia.services.ConexionService;
 import com.oesia.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,6 +24,8 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ConexionService conexionService;
 
     @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
@@ -53,7 +58,7 @@ public class LoginController {
             modelAndView.setViewName("registration");
         } else {
             userService.saveUser(user);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("successMessage", "Usuario creado con éxito");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");
 
@@ -61,6 +66,32 @@ public class LoginController {
         return modelAndView;
     }
 
+    
+    @RequestMapping(value="/configuracion", method = RequestMethod.GET)
+    public ModelAndView configuracion(){
+        ModelAndView modelAndView = new ModelAndView();
+        Conexion conexion = new Conexion();
+        modelAndView.addObject("conexion", conexion);
+        modelAndView.setViewName("configuracion");
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "/configuracion", method = RequestMethod.POST)
+    public ModelAndView updateConexion(@Valid Conexion conexion, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("configuracion");
+        } else {
+            conexionService.saveConexion(conexion);
+            modelAndView.addObject("successMessage", "Configuración actualizada con éxito");
+            modelAndView.addObject("conexion", new Conexion());
+            modelAndView.setViewName("configuracion");
+
+        }
+        return modelAndView;
+    }
+    
     
     
     @RequestMapping(value="/access-denied", method = RequestMethod.GET)

@@ -9,8 +9,7 @@ $(document).ready(function () {
         $('#boton-pruebasmpls').attr('disabled','disabled');
         $('#boton-pruebasmpls').css('cursor','wait');
         event.preventDefault();
-        ajax_pruebasmpls();       
-
+        ajax_pruebasmpls();   
     });
     
     $("#searchrouter").submit(function (event) {
@@ -22,7 +21,6 @@ $(document).ready(function () {
         $('#boton-pruebasmpls').attr('disabled','disabled');
         $('#boton-pruebasmpls').css('cursor','wait');
         ajax_pruebasrouter();
-
     }); 
 
 });
@@ -152,7 +150,7 @@ function ajax_vias(idcanal) {      // onchange en select boxes
         data: JSON.stringify(vias),
         dataType: 'json',
         cache: false,
-        timeout: 600000,
+        timeout: 60000,
         success: function() {
             $("#clipboard").hide();
             $("#clipboardrouter").hide();
@@ -192,7 +190,7 @@ function ajax_pruebasmpls() {     // boton pruebas mpls
         data: JSON.stringify(vias),
         dataType: 'json',
         cache: false,
-        timeout: 600000,
+        timeout: 60000,
         beforeSend: function() {
             $("#loadmpls").show();
         },
@@ -230,7 +228,7 @@ function ajax_pruebasrouter() {     // boton pruebas router
         data: JSON.stringify(vias),
         dataType: 'json',
         cache: false,
-        timeout: 600000,
+        timeout: 40000,
         beforeSend: function() {
             $("#loadrouter").show();
 
@@ -291,3 +289,4 @@ function CopyToClipboard (containerid) {
 	 
 	  document.body.removeChild(textarea)
 	}
+

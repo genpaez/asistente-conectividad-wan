@@ -51,7 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 	.antMatchers("/index/").denyAll()
                 	.antMatchers("/registration").hasAuthority("ADMIN").anyRequest()
                 	.authenticated()
-
+                	.antMatchers("/configuracion").hasAuthority("ADMIN").anyRequest()
+                	.authenticated()
                 	
                 .and()
                 	.csrf().disable()

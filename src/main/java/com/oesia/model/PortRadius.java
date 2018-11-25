@@ -39,9 +39,9 @@ public class PortRadius {
 	 }
 	
 	
-	 public void sesionA() throws JSchException{
+	 public void sesionA(){
 
-
+		 try {
 			sessionA = jSch.getSession(usernameradius, hostA, 2224);  
 			Properties config = new Properties(); 
 	        config.put("StrictHostKeyChecking", "no");
@@ -57,7 +57,9 @@ public class PortRadius {
 	        	System.out.println("Connected host A!");
 	        		
 	        }
-			
+		} catch (JSchException e) {
+			e.printStackTrace();
+		}
 	 }
 	
 	 
@@ -72,16 +74,17 @@ public class PortRadius {
 		        config.put("StrictHostKeyChecking", "no");
 		        sessionB.setConfig(config);
 		        sessionB.setPassword(passwordrouter);
-				sessionB.connect(25000);
+				sessionB.connect(60000);
 				
-		      if(sessionB.isConnected()) {
-		         System.out.println("Connected host B!"); 
-		            
-			  }
-		    } catch (JSchException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			      if(sessionB.isConnected()) {
+			         System.out.println("Connected host B!"); 
+			            
+				  }
+			      
+			    } catch (JSchException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	        	        
 	 }
 	
