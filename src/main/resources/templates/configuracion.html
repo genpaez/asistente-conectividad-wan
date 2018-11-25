@@ -30,7 +30,7 @@
     					  <li><a href="/logout" th:action="@{/logout}"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión </a></li>
     				</ul>
     				<ul class="nav navbar-nav navbar-right">
-    					  <li><a href="/condiguracion"><span class="glyphicon glyphicon-wrench"></span> Parametros de conexión PE/Router </a></li>
+    					  <li><a href="/configuracion"><span class="glyphicon glyphicon-wrench"></span> Parametros de conexión PE/Router </a></li>
     				</ul>
     				<ul class="nav navbar-nav navbar-right">
     					  <li><a  href="/registration"><span class="glyphicon glyphicon-user"></span> Registro de usuarios </a></li>
@@ -55,23 +55,26 @@
                           
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('ip_servidor_mpls')}" th:errors="*{ip_servidor_mpls}"
-                               class="validation-message"></label>
+                    	<label style="color:#660066"> IP Servidor de salto MPLS </label>
                         <input type="text" th:field="*{ip_servidor_mpls}" placeholder="IP Servidor de salto MPLS"
                                class="form-control"/>
+                        <label th:if="${#fields.hasErrors('ip_servidor_mpls')}" th:errors="*{ip_servidor_mpls}"
+                               class="validation-message"></label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('usuario_mpls')}" th:errors="*{usuario_mpls}"
-                               class="validation-message"></label>
+                    	<label style="color:#660066"> Usuario MPLS </label>
                         <input type="text" th:field="*{usuario_mpls}"
                                placeholder="Usuario MPLS" class="form-control"/>
+                        <label th:if="${#fields.hasErrors('usuario_mpls')}" th:errors="*{usuario_mpls}"
+                               class="validation-message"></label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
+                    	<label style="color:#660066"> Clave 1 - Servidor MPLS </label>
                         <input type="text" th:field="*{clave_1_mpls}" placeholder="Clave 1 - Servidor MPLS"
                                class="form-control"/> <label
                             th:if="${#fields.hasErrors('clave_1_mpls')}" th:errors="*{clave_1_mpls}"
@@ -80,16 +83,34 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
+                    	<label style="color:#660066"> Clave 2 - MPLS PE </label>
                         <input type="text" th:field="*{clave_2_mpls}"
-                               placeholder="Clave 2 -  MPLS PE" class="form-control"/> <label
-                            th:if="${#fields.hasErrors('clave_2_mpls')}" th:errors="*{clave_2_mpls}"
+                               placeholder="Clave 2 -  MPLS PE" class="form-control"/> 
+                        <label th:if="${#fields.hasErrors('clave_2_mpls')}" th:errors="*{clave_2_mpls}"
                             class="validation-message"></label>
                     </div>
                 </div>
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                        <button type="submit" class="btn btn-primary btn-block"> Guardar </button>
                     </div>
                 </div>
 
