@@ -3,6 +3,8 @@ package com.oesia.services;
 import com.oesia.model.Conexion;
 import com.oesia.model.ConexionRepository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +18,9 @@ public class ConexionService {
 	  	
 	    public Conexion saveConexion(Conexion conexion) {
 	    		
-	//    	int id=1;
-	  //      conexionRepository.deleteById(id);   // Registro de configuración, elimina el existente y crea con id 1
-	    //    conexionRepository.flush();
-	    //	 conexion.setId(1);
-	        return conexionRepository.save(conexion);
+	        conexionRepository.deleteAll();   // Registro de configuración, elimina el existente 
+	        conexionRepository.flush();
+	        return conexionRepository.save(conexion); // Agrega nuevo registro (unico)
 	    }
 	    
-	    public void findUserByEmail(int id) {
-	        conexionRepository.findById(id);
-	    }
 }

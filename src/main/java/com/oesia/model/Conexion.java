@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 public class Conexion {
 	
 		@Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
 	    @Column(name = "conexion_id")
 	    private int id;
 	    @Column(name = "ip_servidor_mpls")

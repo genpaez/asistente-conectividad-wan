@@ -6,6 +6,8 @@ import com.oesia.model.Canal;
 import com.oesia.model.Cliente;
 import com.oesia.model.ClienteRepository;
 import com.oesia.model.Compositor;
+import com.oesia.model.Conexion;
+import com.oesia.model.ConexionRepository;
 import com.oesia.model.Executor;
 import com.oesia.model.MyRepository;
 import com.oesia.model.Pe;
@@ -58,6 +60,8 @@ public class SearchController {
 	private CiudadRepository ciudadRepository;
 	@Autowired
 	private ServiciosRepository serviciosRepository;
+	@Autowired
+  	private ConexionRepository conexionRepository;
 
 	
 	
@@ -152,4 +156,13 @@ public class SearchController {
     	man.close();
     	return respuestarouter; 
     }
+    
+    
+    @PostMapping(path = "/api/conexion")
+    public @ResponseBody List<?> getConexion(){
+		
+    	List<Conexion> conexion = conexionRepository.findAll();
+    	return conexion;
+    }
+    
 }
