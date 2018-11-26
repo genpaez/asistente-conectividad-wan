@@ -141,6 +141,14 @@ public class SearchController {
     public List<String> pruebasRouter(@RequestBody Canal canal) throws IOException, InterruptedException{
     	
     	List<String> respuesta = new ArrayList<String>();
+    	
+    	if(canal.getLoopback().equals("")) {
+    		
+    		respuesta.add("Error al procesar su solicitud, verifique la información del canal y puertos configurados en la aplicación");  // error sin viene sin parametro loopback
+    		return respuesta;
+    		}
+    	
+
     	PortRadius man = new PortRadius(canal.getLoopback()); 
     	Compositor myComposer = new Compositor(); 
     	

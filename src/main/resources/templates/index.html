@@ -168,7 +168,7 @@ th, td{
 
 
 </head>
-<body onload="ajax_cliente();" style="background-color:#EEEDEF;">
+<body onload="ajax_cliente()" style="background-color:#EEEDEF;">
 
         <div id="feedback"> </div>
 
@@ -195,8 +195,8 @@ th, td{
 
         <form class="form-horizontal" id="search-form">
 
-        	<a href="/index">
-            <img  src="http://grupooesia.com/wp-content/uploads/2015/11/logo_oesia_011.png"  width="140" height="80" class="right"> 
+        	<a>
+            <img  src="http://grupooesia.com/wp-content/uploads/2015/11/logo_oesia_011.png"  width="140" height="80" class="right" onclick="limpiar()" title="Click para limpiar formulario"> 
              </a>
 					 <br></br>
 					 
@@ -235,7 +235,7 @@ th, td{
         <div class="tab">
   			<button class="tablinks" onclick="openPest(event, 'mpls')">MPLS</button>
   			<button class="tablinks" onclick="openPest(event, 'router')">Router</button>
-  			<button class="tablinks" onclick="openPest(event, 'config')"><img  src="/icono_config.png"  width="24" height=auto> </button>
+  			<button class="tablinks" onclick="openPest(event, 'config'); ajax_conexion()"><img  src="/icono_config.png"  width="24" height=auto> </button>
 		</div>
         
         
@@ -316,22 +316,21 @@ th, td{
 							<form class="form-horizontal" style="overflow-x:auto">
 							
 							<div class="grid-container">
-								  <div class="grid-item">IP Servidor de salto MPLS <input type="text" name="ipservermpls" required></div>	
-								  <div class="grid-item">Clave 1 - Servidor MPLS <input type="text" name="clave1mpls" required></div>  
-								  <div class="grid-item">Usuario MPLS <input type="text" name="usermpls" required></div>
-								  <div class="grid-item">Clave 2 -  MPLS PE <input type="text" name="clave2mpls" required></div>
+								  <div class="grid-item">IP Servidor de salto MPLS <input type="text" id="ipservermpls" required></div>	
+								  <div class="grid-item">Clave 1 - Servidor MPLS <input type="text" id="clave1mpls" required></div>  
+								  <div class="grid-item">Usuario MPLS <input type="text" id="usermpls" required></div>
+								  <div class="grid-item">Clave 2 -  MPLS PE <input type="text" id="clave2mpls" required></div>
 							</div>
 							
 							<label style="color:#660066">	Radius</label> 
 							<div class="grid-container">
-								  <div class="grid-item">IP Servidor de salto Radius <input id= "in" type="text" name="ipserverradius" required></div> 
-								  <div class="grid-item">Usuario acceso a Router <input id= "in" type="text" name="userrouter" required></div>
-								  <div class="grid-item">Usuario servidor Radius <input id= "in" type="text" name="userradius" required></div>
-								  <div class="grid-item">Clave acceso a Router <input id= "in" type="text" name="claverouter" required></div> 
-								  <div class="grid-item">Clave servidor Radius <input id= "in" type="text" name="claveradius" required></div>					  
-								  <div class="grid-item"><button type="submit" id="boton-configuracion"
-                            		class="button" >Cargar
-                    				 </button>
+								  <div class="grid-item">IP Servidor de salto Radius <input type="text" id="ipserverradius" required></div> 
+								  <div class="grid-item">Usuario acceso a Router <input type="text" id="userrouter" required></div>
+								  <div class="grid-item">Usuario servidor Radius <input type="text" id="userradius" required></div>
+								  <div class="grid-item">Clave acceso a Router <input type="text" id="claverouter" required></div> 
+								  <div class="grid-item">Clave servidor Radius <input type="text" id="claveradius" required></div>					  
+								  <div class="grid-item">Puerto Local 1 <input type="text" id="puertolocalmpls" required placeholder="Ingrese puerto local"></div>
+                    			  <div class="grid-item">Puerto Local 2 <input type="text" id="puertolocalradius" required placeholder="Ingrese otro puerto local"></div>
                     			   </div>
 							</div>
 							<br>
@@ -351,6 +350,7 @@ th, td{
 <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
 
 <script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/conexion.js"></script>
 
 </body>
 

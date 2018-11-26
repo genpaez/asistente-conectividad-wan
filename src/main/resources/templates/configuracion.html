@@ -18,8 +18,7 @@
     </style>
     
 </head>
-<body style="background-color:#EEEDEF">
-
+<body onload="ajax_conexion()" style="background-color:#EEEDEF">
 
 		<nav class="navbar navbar-default" style="background-color: #EBE7EC">
 		    <div  class="container" style="background-color: #EBE7EC">
@@ -39,14 +38,16 @@
 		</nav>
 		
 		<br>
+		
+		<div align="center">
+			<textarea rows="3" cols="90" readonly style="color:#660066">Configure los valores de conexión MPLS/PE/Radius/Router que serán cargados automaticamente para cada sesión de usuario. No puede dejar valores en blanco, en cambio puede dejar un texto solicitando al usuario ingresar el dato manualmente</textarea>
+		</div>
 
 	   		 <img  src="http://grupooesia.com/wp-content/uploads/2015/11/logo_oesia_011.png"  width="140" height="80" align="middle"> 
 
-
-
-<div class="container">
+	<div class="container">
  
-   <div class="row">
+   	<div class="row">
         <div class="col-md-6 col-md-offset-3">
         
             <form autocomplete="off" action="#" th:action="@{/configuracion}"
@@ -57,7 +58,7 @@
                     <div class="col-sm-9">
                     	<label style="color:#660066"> IP Servidor de salto MPLS </label>
                         <input type="text" th:field="*{ip_servidor_mpls}" placeholder="IP Servidor de salto MPLS"
-                               class="form-control"/>
+                               class="form-control" id="ipservermpls"/>
                         <label th:if="${#fields.hasErrors('ip_servidor_mpls')}" th:errors="*{ip_servidor_mpls}"
                                class="validation-message"></label>
                     </div>
@@ -67,7 +68,7 @@
                     <div class="col-sm-9">
                     	<label style="color:#660066"> Usuario MPLS </label>
                         <input type="text" th:field="*{usuario_mpls}"
-                               placeholder="Usuario MPLS" class="form-control"/>
+                               placeholder="Usuario MPLS" class="form-control" id="usermpls"/>
                         <label th:if="${#fields.hasErrors('usuario_mpls')}" th:errors="*{usuario_mpls}"
                                class="validation-message"></label>
                     </div>
@@ -76,7 +77,7 @@
                     <div class="col-sm-9">
                     	<label style="color:#660066"> Clave 1 - Servidor MPLS </label>
                         <input type="text" th:field="*{clave_1_mpls}" placeholder="Clave 1 - Servidor MPLS"
-                               class="form-control"/> <label
+                               class="form-control" id="clave1mpls"/> <label
                             th:if="${#fields.hasErrors('clave_1_mpls')}" th:errors="*{clave_1_mpls}"
                             class="validation-message"></label>
                     </div>
@@ -85,7 +86,7 @@
                     <div class="col-sm-9">
                     	<label style="color:#660066"> Clave 2 - MPLS PE </label>
                         <input type="text" th:field="*{clave_2_mpls}"
-                               placeholder="Clave 2 - MPLS PE" class="form-control"/> 
+                               placeholder="Clave 2 - MPLS PE" class="form-control" id="clave2mpls"/> 
                         <label th:if="${#fields.hasErrors('clave_2_mpls')}" th:errors="*{clave_2_mpls}"
                             class="validation-message"></label>
                     </div>
@@ -101,7 +102,7 @@
                     <div class="col-sm-9">
                     	<label style="color:#660066"> IP Servidor de Radius </label>
                         <input type="text" th:field="*{ip_servidor_radius}" placeholder="IP Servidor de Radius"
-                               class="form-control"/>
+                               class="form-control" id="ipserverradius"/>
                         <label th:if="${#fields.hasErrors('ip_servidor_radius')}" th:errors="*{ip_servidor_radius}"
                                class="validation-message"></label>
                     </div>
@@ -111,7 +112,7 @@
                     <div class="col-sm-9">
                     	<label style="color:#660066"> Usuario servidor Radius </label>
                         <input type="text" th:field="*{usuario_radius}"
-                               placeholder="Usuario servidor Radius" class="form-control"/>
+                               placeholder="Usuario servidor Radius" class="form-control" id="userradius"/>
                         <label th:if="${#fields.hasErrors('usuario_radius')}" th:errors="*{usuario_radius}"
                                class="validation-message"></label>
                     </div>
@@ -120,7 +121,7 @@
                     <div class="col-sm-9">
                     	<label style="color:#660066"> Clave servidor Radius </label>
                         <input type="text" th:field="*{clave_radius}" placeholder="Clave servidor Radius"
-                               class="form-control"/> <label
+                               class="form-control" id="claveradius"/> <label
                             th:if="${#fields.hasErrors('clave_radius')}" th:errors="*{clave_radius}"
                             class="validation-message"></label>
                     </div>
@@ -132,7 +133,7 @@
                     <div class="col-sm-9">
                     	<label style="color:#660066"> Usuario acceso a Router </label>
                         <input type="text" th:field="*{usuario_router}"
-                               placeholder="Usuario acceso a Router" class="form-control"/> 
+                               placeholder="Usuario acceso a Router" class="form-control" id="userrouter"/> 
                         <label th:if="${#fields.hasErrors('usuario_router')}" th:errors="*{usuario_router}"
                             class="validation-message"></label>
                     </div>
@@ -142,7 +143,7 @@
                     <div class="col-sm-9">
                     	<label style="color:#660066"> Clave acceso a Router </label>
                         <input type="text" th:field="*{clave_router}"
-                               placeholder="Clave acceso a Router" class="form-control"/> 
+                               placeholder="Clave acceso a Router" class="form-control" id="claverouter"/> 
                         <label th:if="${#fields.hasErrors('clave_router')}" th:errors="*{clave_router}"
                             class="validation-message"></label>
                     </div>
@@ -162,8 +163,13 @@
 
             </form>
         </div>
-    </div>
-</div>
+    	</div>
+	</div>
+
+
+<script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/conexion.js"></script>
 
 </body>
 

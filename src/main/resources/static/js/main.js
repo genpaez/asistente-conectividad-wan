@@ -198,6 +198,15 @@ function ajax_pruebasmpls() {     // boton pruebas mpls
             $("#clipboard").show();
             $("#loadmpls").hide();
         },
+        error: function() {
+            $("#loadmpls").hide();
+            $('#mpls_response').html('');
+            $("#mpls_response").append("Error al procesar su solicitud. Verifique la información del canal y puertos configurados en la aplicación");
+			$('#boton-pruebasmpls').removeAttr('disabled');
+			$('#boton-pruebasmpls').css('cursor','pointer');
+			$('#boton-pruebasrouter').removeAttr('disabled'); 
+			$('#boton-pruebasrouter').css('cursor','pointer');
+        },
     		}).then(function(data) {
     			
     			$('#mpls_response').html('');
@@ -228,7 +237,7 @@ function ajax_pruebasrouter() {     // boton pruebas router
         data: JSON.stringify(vias),
         dataType: 'json',
         cache: false,
-        timeout: 40000,
+        timeout: 60000,
         beforeSend: function() {
             $("#loadrouter").show();
 
@@ -237,6 +246,15 @@ function ajax_pruebasrouter() {     // boton pruebas router
             $("#loadrouter").hide();
             $("#clipboardrouter").show();
             
+        },        
+        error: function() {
+            $("#loadrouter").hide();
+            $('#router_response').html('');
+            $("#router_response").append("Error al procesar su solicitud. Verifique la información del canal y puertos configurados en la aplicación");
+			$('#boton-pruebasmpls').removeAttr('disabled');
+			$('#boton-pruebasmpls').css('cursor','pointer');
+			$('#boton-pruebasrouter').removeAttr('disabled'); 
+			$('#boton-pruebasrouter').css('cursor','pointer');
         },
     		}).then(function(data) {
     			
@@ -290,3 +308,14 @@ function CopyToClipboard (containerid) {
 	  document.body.removeChild(textarea)
 	}
 
+
+
+function limpiar(){
+	ajax_cliente();
+	$('#ciudad').html('');
+	$('#ciudad').append('<option value="">' + 'Seleccione una ciudad...' + '</option>');
+	$('#sede').html('');
+	$('#sede').append('<option value="">' + 'Seleccione una sede...' + '</option>');
+	$('#canal').html('');
+	$('#canal').append('<option value="">' + 'Seleccione un canal...' + '</option>');	
+}
