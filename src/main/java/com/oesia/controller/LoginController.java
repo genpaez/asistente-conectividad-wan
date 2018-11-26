@@ -72,7 +72,7 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         Conexion conexion = new Conexion();
         modelAndView.addObject("conexion", conexion);
-        modelAndView.setViewName("configuracion");
+        modelAndView.setViewName("configuracion"); 
         return modelAndView;
     }
     
@@ -82,7 +82,7 @@ public class LoginController {
 
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("configuracion");
-        } else {
+        } else{
             conexionService.saveConexion(conexion);
             modelAndView.addObject("successMessage", "Configuración actualizada con éxito");
             modelAndView.addObject("conexion", new Conexion());
@@ -102,10 +102,10 @@ public class LoginController {
     }
     
     
-    @RequestMapping(value="/index", method = RequestMethod.GET)
-    public ModelAndView inicio(){
+    @RequestMapping(value="/error", method = RequestMethod.GET)
+    public ModelAndView error(){
     	ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("error");
         return modelAndView;
     }
     
@@ -128,6 +128,15 @@ public class LoginController {
          }
          return "redirect:/registration";
      }
+    
+    
+    @RequestMapping(value="/index", method = RequestMethod.GET)
+    public ModelAndView inicio(){
+    	ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return modelAndView;
+    }
+    
     
     
 }

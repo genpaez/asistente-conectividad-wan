@@ -2,27 +2,28 @@ package com.oesia.services;
 
 import com.oesia.model.Conexion;
 import com.oesia.model.ConexionRepository;
-import com.oesia.model.Role;
-import com.oesia.model.User;
-import com.oesia.model.RoleRepository;
-import com.oesia.model.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
-import javax.validation.Valid;
 
 @Service("conexionService")
 public class ConexionService {
-
-    private ConexionRepository conexionRepository;
-
-    public Conexion saveConexion(Conexion conexion) {
-		return conexionRepository.save(conexion);
-	}
-
+		
+		@Autowired
+	  	private ConexionRepository conexionRepository;
+	  	
+	  	
+	    public Conexion saveConexion(Conexion conexion) {
+	    		
+	//    	int id=1;
+	  //      conexionRepository.deleteById(id);   // Registro de configuración, elimina el existente y crea con id 1
+	    //    conexionRepository.flush();
+	    //	 conexion.setId(1);
+	        return conexionRepository.save(conexion);
+	    }
+	    
+	    public void findUserByEmail(int id) {
+	        conexionRepository.findById(id);
+	    }
 }

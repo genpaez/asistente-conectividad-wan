@@ -85,24 +85,68 @@
                     <div class="col-sm-9">
                     	<label style="color:#660066"> Clave 2 - MPLS PE </label>
                         <input type="text" th:field="*{clave_2_mpls}"
-                               placeholder="Clave 2 -  MPLS PE" class="form-control"/> 
+                               placeholder="Clave 2 - MPLS PE" class="form-control"/> 
                         <label th:if="${#fields.hasErrors('clave_2_mpls')}" th:errors="*{clave_2_mpls}"
                             class="validation-message"></label>
                     </div>
                 </div>
                 
                 
+                <hr/>
+                <hr/>
                 
                 
                 
+               <div class="form-group">
+                    <div class="col-sm-9">
+                    	<label style="color:#660066"> IP Servidor de Radius </label>
+                        <input type="text" th:field="*{ip_servidor_radius}" placeholder="IP Servidor de Radius"
+                               class="form-control"/>
+                        <label th:if="${#fields.hasErrors('ip_servidor_radius')}" th:errors="*{ip_servidor_radius}"
+                               class="validation-message"></label>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <div class="col-sm-9">
+                    	<label style="color:#660066"> Usuario servidor Radius </label>
+                        <input type="text" th:field="*{usuario_radius}"
+                               placeholder="Usuario servidor Radius" class="form-control"/>
+                        <label th:if="${#fields.hasErrors('usuario_radius')}" th:errors="*{usuario_radius}"
+                               class="validation-message"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                    	<label style="color:#660066"> Clave servidor Radius </label>
+                        <input type="text" th:field="*{clave_radius}" placeholder="Clave servidor Radius"
+                               class="form-control"/> <label
+                            th:if="${#fields.hasErrors('clave_radius')}" th:errors="*{clave_radius}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
                 
+                <hr/>
                 
+                <div class="form-group">
+                    <div class="col-sm-9">
+                    	<label style="color:#660066"> Usuario acceso a Router </label>
+                        <input type="text" th:field="*{usuario_router}"
+                               placeholder="Usuario acceso a Router" class="form-control"/> 
+                        <label th:if="${#fields.hasErrors('usuario_router')}" th:errors="*{usuario_router}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
                 
-                
-                
-                
-                
+                <div class="form-group">
+                    <div class="col-sm-9">
+                    	<label style="color:#660066"> Clave acceso a Router </label>
+                        <input type="text" th:field="*{clave_router}"
+                               placeholder="Clave acceso a Router" class="form-control"/> 
+                        <label th:if="${#fields.hasErrors('clave_router')}" th:errors="*{clave_router}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
                 
                 
                 

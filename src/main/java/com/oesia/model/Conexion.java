@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +21,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "tb_asistenteconectividad_conexion")
 public class Conexion {
 	
-	 	@Id
+		@Id
+	    @GeneratedValue(strategy = GenerationType.AUTO)
 	    @Column(name = "conexion_id")
 	    private int id;
 	    @Column(name = "ip_servidor_mpls")
@@ -37,6 +37,23 @@ public class Conexion {
 	    @Column(name = "clave_2_mpls")
 	    @NotEmpty(message = "*Por favor ingrese clave 2 MPLS")
 	    private String clave_2_mpls;
+
+	    
+	    @Column(name = "ip_servidor_radius")
+	    @NotEmpty(message = "*Por favor ingrese IP de servidor Radius")
+	    private String ip_servidor_radius;
+	    @Column(name = "usuario_radius")
+	    @NotEmpty(message = "*Por favor ingrese usuario de servidor Radius")
+	    private String usuario_radius;
+	    @Column(name = "clave_radius")
+	    @NotEmpty(message = "*Por favor ingrese clave de radius")
+	    private String clave_radius;
+	    @Column(name = "usuario_router")
+	    @NotEmpty(message = "*Por favor ingrese usuario de Router")
+	    private String usuario_router;
+	    @Column(name = "clave_router")
+	    @NotEmpty(message = "*Por favor ingrese clave de Router")
+	    private String clave_router;
 	    
 	    
 	    
@@ -58,19 +75,51 @@ public class Conexion {
 		public void setUsuario_mpls(String usuario_mpls) {
 			this.usuario_mpls = usuario_mpls;
 		}
+		
 		public int getId() {
 			return id;
 		}
 		public void setId(int id) {
 			this.id = id;
 		}
+		
 		public String getIp_servidor_mpls() {
 			return ip_servidor_mpls;
 		}
 		public void setIp_servidor_mpls(String ip_servidor_mpls) {
 			this.ip_servidor_mpls = ip_servidor_mpls;
 		}
-	    
-	    
+	        
+		
+		public String getIp_servidor_radius() {
+			return ip_servidor_radius;
+		}
+		public void setIp_servidor_radius(String ip_servidor_radius) {
+			this.ip_servidor_radius = ip_servidor_radius;
+		}
+		public String getUsuario_radius() {
+			return usuario_radius;
+		}
+		public void setUsuario_radius(String usuario_radius) {
+			this.usuario_radius = usuario_radius;
+		}
+		public String getClave_radius() {
+			return clave_radius;
+		}
+		public void setClave_radius(String clave_radius) {
+			this.clave_radius = clave_radius;
+		}
+		public String getUsuario_router() {
+			return usuario_router;
+		}
+		public void setUsuario_router(String usuario_router) {
+			this.usuario_router = usuario_router;
+		}
+		public String getClave_router() {
+			return clave_router;
+		}
+		public void setClave_router(String clave_router) {
+			this.clave_router = clave_router;
+		}
 
 }
