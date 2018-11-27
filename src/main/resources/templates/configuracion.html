@@ -15,6 +15,10 @@
 	    margin-left: auto;
 	    margin-right: auto;
 		}
+		
+		.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+	    background-color: #771D5F !important;
+		} 
     </style>
     
 </head>
@@ -159,7 +163,7 @@
                     </div>
                 </div>
 
-                <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
+                <h3><span class="text-success" th:utext="${successMessage}" style="color:#660066"></span></h3>
 
             </form>
         </div>

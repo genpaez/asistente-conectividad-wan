@@ -4,3 +4,6 @@
     color: #FF1C19;
 }
 
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+	    background-color: #771D5F !important;
+	} 
