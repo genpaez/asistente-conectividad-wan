@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Servicio_vpnip {
 
 		@Id  
-	    @GeneratedValue(strategy=GenerationType.IDENTITY)
+//	    @GeneratedValue(strategy=GenerationType.IDENTITY)
 		@Column(name = "servpnip_id") //unique = true, nullable = false
 		int servpnip_id;
 		@Column(name = "servpnip_tipo_enlace")

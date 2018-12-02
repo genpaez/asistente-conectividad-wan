@@ -89,9 +89,8 @@ public class SearchController {
     }
      
     @PostMapping(path = "/api/canales")
-    public @ResponseBody List<?> findCanal(@RequestBody Servicio servicio){   // @RequestBody Servicio_vpnip servicio
-		
-  
+    public @ResponseBody List<?> findCanal(@RequestBody Servicio servicio){  // @RequestBody Servicio_vpnip servicio
+    	
     	List<?> servicios = serviciosRepository.findServicioSede(servicio.getServicio_sede());  //
     	return servicios;
     }
@@ -110,16 +109,16 @@ public class SearchController {
     }
     
     
-    
     @PostMapping(path = "/api/pruebasmpls")
     public List<String> pruebasMpls(@RequestBody String[] vias1) throws IOException, InterruptedException{
     	
     	List<String> respuesta = new ArrayList<String>();
-    	Canal vias = myRepository.findViasS(vias1[0]);    // RECIBE ARREGLO DE STRING {Canal, Pe}
+    	Canal vias = myRepository.findViasS(vias1[0]);    // RECIBE ARREGLO DE STRING {Canal, Pe, String, String...}
     	Pe pe = peRepository.findByIP(vias1[1]); 
-    	
+    	  	
     	String nodo = pe.getIp_pe();
-    	PortFR man = new PortFR(nodo); 
+    						 // String hostA, String forwardedPort, String username, String passwordA, String passwordB 
+    	PortFR man = new PortFR(nodo, vias1[2], vias1[3], vias1[4], vias1[5], vias1[6]); 
     	Compositor myComposer = new Compositor(); 
     	
     	try {
@@ -138,18 +137,17 @@ public class SearchController {
     }
     
     @PostMapping(path = "/api/pruebasrouter")
-    public List<String> pruebasRouter(@RequestBody Canal canal) throws IOException, InterruptedException{
+    public List<String> pruebasRouter(@RequestBody String[] vias) throws IOException, InterruptedException{
+    	//[$('#loopback').text(),  $('#enrutamiento').text(), $('#ipserverradius').text(), $('#userradius').text(), $('#claveradius').text(), $('#puertolocalradius').text(), $('#userrouter').text(), $('#claverouter').text()];
     	
-    	List<String> respuesta = new ArrayList<String>();
+    	List<String> respuesta = new ArrayList<String>(); 	
     	
-    	if(canal.getLoopback().equals("")) {
-    		
+    	if(vias[0].equals("")) {	
     		respuesta.add("Error al procesar su solicitud, verifique la información del canal y puertos configurados en la aplicación");  // error sin viene sin parametro loopback
     		return respuesta;
-    		}
-    	
+    		}   	
 
-    	PortRadius man = new PortRadius(canal.getLoopback()); 
+    	PortRadius man = new PortRadius(vias[0], vias[2], vias[3], vias[4], vias[5], vias[6], vias[7]); 
     	Compositor myComposer = new Compositor(); 
     	
     	try {
@@ -159,7 +157,7 @@ public class SearchController {
 			return respuesta;
 		}
     	
-    	List<String> comandos = myComposer.comandosRouter(canal.getEnrutamiento());
+    	List<String> comandos = myComposer.comandosRouter(vias[1]); // Argumento = Enrutamiento
         List<String> respuestarouter = man.execute(comandos);
     	man.close();
     	return respuestarouter; 

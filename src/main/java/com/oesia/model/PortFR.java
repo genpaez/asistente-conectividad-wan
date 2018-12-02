@@ -17,18 +17,29 @@ import com.jcraft.jsch.*;
 
 public class PortFR {  // conexión mpls y ejecución.
 	
-	private  String username = "opegpae1";
+/*	private  String username = "opegpae1";
 	private  String passwordA = "Baudelaire18*", passwordB = "FN5ihAJo";
 	private  String hostA = "10.30.4.165", hostB;
-	private  JSch jSch = new JSch();
+	private  int forwardedPort; */
+	private  String username = null;
+	private  String passwordA = null, passwordB = null;
+	private  String hostA = null, hostB = null;
 	private  int forwardedPort;
+	private  JSch jSch = new JSch();
 	private  Session sessionA;
 	private  Session sessionB;
 
 		
 	 
-	 public PortFR(String hostB) {
-		 this.hostB = hostB;
+	 public PortFR(String hostB, String hostA, String forwardedPort, String username, String passwordA, String passwordB) {
+		 
+		 this.hostB = hostB; // pe en mpls
+		 this.hostA = hostA; // servidor de salto mpls
+		 this.forwardedPort = Integer.parseInt(forwardedPort);
+		 this.username = username;
+		 this.passwordA = passwordA;
+		 this.passwordB = passwordB;
+
 	}
 
 	public void conectar() throws IOException, InterruptedException, JSchException{
@@ -44,7 +55,7 @@ public class PortFR {  // conexión mpls y ejecución.
 	        config.put("StrictHostKeyChecking", "no");
 	        sessionA.setConfig(config);
 	        sessionA.setPassword(passwordA);
-	        forwardedPort = 2222;                //  **** Puerto local ! ****
+	//        forwardedPort = 2222;                //  **** Puerto local ! ****
         	sessionA.setPortForwardingL(forwardedPort, hostB, 22);	// puerto para tunel hacia hostB
 	        sessionA.connect(10000);
 	        sessionA.openChannel("direct-tcpip"); //***************** // Shell/Exc/TCP 

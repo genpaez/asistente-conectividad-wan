@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 	
 @Entity
 @Table(name = "tb_clientes")
@@ -22,14 +23,19 @@ public class Cliente {
 	private String cliente_segmento;
 	@Column(name = "cliente_cluster")
 	private int cliente_cluster;
+	@Transient
 	@Column(name = "cliente_cuadrilla")
 	private int cliente_cuadrilla;
+	@Transient
 	@Column(name = "cliente_aliado")
 	private String  cliente_aliado;
+	@Transient
 	@Column(name = "cliente_cnoc")
 	private String  cliente_cnoc;
+	@Transient
 	@Column(name = "cliente_cgp")
 	private String  cliente_cgp;
+	@Transient
 	@Column(name = "cliente_observaciones")
 	private String  cliente_observaciones;
 	 

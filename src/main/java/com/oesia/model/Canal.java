@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Canal { //Serializable*
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+//    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "servpnip_id", unique = true, nullable = false)
 	int id;
 	@Column(name = "servpnip_pe")

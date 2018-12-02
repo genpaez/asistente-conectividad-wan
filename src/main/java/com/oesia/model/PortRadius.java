@@ -17,20 +17,28 @@ import com.jcraft.jsch.*;
 
 public class PortRadius {
 	
-	private  String usernameradius = "gics", userrouter = "ivbohorquezro";
-	private  String passwordradius = "t3l3c0m", passwordrouter = "2W24K7XY";
-	private  String hostA = "10.201.136.103", loopback;
+//	private  String usernameradius = "gics", userrouter = "ivbohorquezro";
+//	private  String passwordradius = "t3l3c0m", passwordrouter = "2W24K7XY";
+//	private  String hostA = "10.201.136.103", loopback;
+	private  String usernameradius = null, userrouter = null;
+	private  String passwordradius = null, passwordrouter = null;
+	private  String hostA =  null, loopback = null;
+	private  int forwardedPort;
 	private  Session sessionA;
 	private  Session sessionB;
-	private  int forwardedPort;
 	private  JSch jSch = new JSch();
 
 
-	
+	//[$('#loopback').text(), $('#ipserverradius').text(), $('#userradius').text(), $('#claveradius').text(), $('#puertolocalradius').text(), $('#userrouter').text(), $('#claverouter').text()];
+	public PortRadius(String loopback, String hostA, String usernameradius, String passwordradius, String forwardedPort, String userrouter, String passwordrouter) {
 
-	public PortRadius(String loopback) {
-		// TODO Auto-generated constructor stub
+		this.hostA = hostA;
 		this.loopback = loopback;
+		this.forwardedPort = Integer.parseInt(forwardedPort);
+		this.usernameradius = usernameradius;
+		this.passwordradius = passwordradius;
+		this.userrouter = userrouter;
+		this.passwordrouter = passwordrouter;		
 	}
 
 	public void conectar() throws IOException, InterruptedException, JSchException{
@@ -47,7 +55,7 @@ public class PortRadius {
 	        config.put("StrictHostKeyChecking", "no");
 	        sessionA.setConfig(config);
 	        sessionA.setPassword(passwordradius);
-	        forwardedPort = 23;                     //  **** Puerto local ! ****
+	  //      forwardedPort = 23;                     //  **** Puerto local ! ****
         	sessionA.setPortForwardingL(forwardedPort, loopback, 22);	// puerto para tunel hacia hostB
 	        sessionA.connect(25000);
 	        sessionA.openChannel("direct-tcpip"); //***************** // Shell/Exc/TCP 
@@ -143,7 +151,7 @@ public class PortRadius {
 		     
 
 		             
-			  for(int x=0;x<60;x++)
+			  for(int x=0;x<70;x++)
 		      {
 		    	  received=br.readLine();
 		    	    

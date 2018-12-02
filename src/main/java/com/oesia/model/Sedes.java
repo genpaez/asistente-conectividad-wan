@@ -14,7 +14,7 @@ import javax.persistence.Table;
 	public class Sedes {
 		
 	    @Id
-	    @GeneratedValue(strategy=GenerationType.IDENTITY)
+//	    @GeneratedValue(strategy=GenerationType.IDENTITY)
 		@Column(name = "sede_id")
 		private int sede_id;
 		@Column(name = "sede_cliente")

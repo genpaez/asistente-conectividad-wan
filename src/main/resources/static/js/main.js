@@ -181,7 +181,7 @@ function ajax_vias(idcanal) {      // onchange en select boxes
 
 function ajax_pruebasmpls() {     // boton pruebas mpls
 
-	var vias = [$('#canal').val(),  $('#ippe').text()];
+	var vias = [$('#canal').val(),  $('#ippe').text(), $('#ipservermpls').val(), $('#puertolocalmpls').val(), $('#usermpls').val(), $('#clave1mpls').val(), $('#clave2mpls').val()];
 	
     $.ajax({
     	type: "POST",
@@ -225,10 +225,13 @@ function ajax_pruebasmpls() {     // boton pruebas mpls
 
 function ajax_pruebasrouter() {     // boton pruebas router
 	
-	var vias = {}
 	
+	var vias = [$('#loopback').text(),  $('#enrutamiento').text(), $('#ipserverradius').val(), $('#userradius').val(), $('#claveradius').val(), $('#puertolocalradius').val(), $('#userrouter').val(), $('#claverouter').val()];
+	/*
+	var vias = {}
 	vias["loopback"] = $('#loopback').text();
 	vias["enrutamiento"] = $('#enrutamiento').text();
+	*/
 
     $.ajax({
     	type: "POST",
