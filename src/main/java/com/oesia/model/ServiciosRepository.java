@@ -8,10 +8,9 @@ import org.springframework.stereotype.Repository;
 
 	
 @Repository
-public interface ServiciosRepository extends CrudRepository<Servicio, Integer>{
-	//servicio_ds, servicio_sede, servicio_tipo
-//	SELECT ciudad_id, ciudad_nombre FROM tb_ciudades JOIN tb_sedes WHERE tb_sedes.sede_cliente = ?1 GROUP BY ciudad_nombre
-	@Query(value ="SELECT servpnip_id, servpnip_tipo_enlace FROM tb_servicio_vpnip JOIN tb_servicios WHERE servicio_sede = ?1 GROUP BY servpnip_tipo_enlace", nativeQuery = true)
-	List<?> findServicioSede(@Param("servicio_sede") int servicio_sede); 
+public interface ServiciosRepository extends CrudRepository<Servicio, String>{
+
+	@Query(value = "SELECT servicio_ds FROM tb_servicios WHERE servicio_sede = ?1", nativeQuery = true)
+	List<String> findServicioSede(@Param("servicio_sede") int servicio_sede);  // Extrae identificadores de servicio por sede
 }
 

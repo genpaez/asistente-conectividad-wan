@@ -1,15 +1,17 @@
+$(window).load(function(){ ajax_conexion(); }) // Carga formulario de configuración
+
 $(document).ready(function () {
 
     $("#searchmpls").submit(function (event) {
         
-        event.preventDefault();
-        //stop submit the form, we will post it manually.
-        $('#boton-pruebasrouter').attr('disabled','disabled');
-        $('#boton-pruebasrouter').css('cursor','wait');
-        $('#boton-pruebasmpls').attr('disabled','disabled');
-        $('#boton-pruebasmpls').css('cursor','wait');
-        event.preventDefault();
-        ajax_pruebasmpls();   
+	        event.preventDefault();
+	        //stop submit the form, we will post it manually.
+	        $('#boton-pruebasrouter').attr('disabled','disabled');
+	        $('#boton-pruebasrouter').css('cursor','wait');
+	        $('#boton-pruebasmpls').attr('disabled','disabled');
+	        $('#boton-pruebasmpls').css('cursor','wait');
+	        event.preventDefault();
+	        ajax_pruebasmpls();  
     });
     
     $("#searchrouter").submit(function (event) {
@@ -129,8 +131,10 @@ function ajax_canal(sede) {      // onchange en select boxes
     			$('#canal').html('');   // Deja en blanco antes de cargar desde server
     			$('#canal').append('<option value="">' + 'Seleccione un canal...' + '</option>');
     			$.each(data, function(i, optionHtml){	
-  	            $('#canal').append('<option value="' + optionHtml[0] + '">' + optionHtml[1] + '</option>');  // Recorre array e inserta opciones
-  	           });
+    				if(optionHtml != null){   // Puede haber servicios por sede que no aparecen en tabla de canales
+    					$('#canal').append('<option value="' + optionHtml.id + '">' + optionHtml.tipo_enlace + '</option>');  // Recorre array e inserta opciones
+    				}
+    			});
     		});
     
 }
@@ -180,6 +184,7 @@ function ajax_vias(idcanal) {      // onchange en select boxes
 
 
 function ajax_pruebasmpls() {     // boton pruebas mpls
+	
 
 	var vias = [$('#canal').val(),  $('#ippe').text(), $('#ipservermpls').val(), $('#puertolocalmpls').val(), $('#usermpls').val(), $('#clave1mpls').val(), $('#clave2mpls').val()];
 	
@@ -227,11 +232,6 @@ function ajax_pruebasrouter() {     // boton pruebas router
 	
 	
 	var vias = [$('#loopback').text(),  $('#enrutamiento').text(), $('#ipserverradius').val(), $('#userradius').val(), $('#claveradius').val(), $('#puertolocalradius').val(), $('#userrouter').val(), $('#claverouter').val()];
-	/*
-	var vias = {}
-	vias["loopback"] = $('#loopback').text();
-	vias["enrutamiento"] = $('#enrutamiento').text();
-	*/
 
     $.ajax({
     	type: "POST",

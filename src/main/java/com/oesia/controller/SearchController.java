@@ -8,41 +8,25 @@ import com.oesia.model.ClienteRepository;
 import com.oesia.model.Compositor;
 import com.oesia.model.Conexion;
 import com.oesia.model.ConexionRepository;
-import com.oesia.model.Executor;
 import com.oesia.model.MyRepository;
 import com.oesia.model.Pe;
 import com.oesia.model.PeRepository;
 import com.oesia.model.PortFR;
 import com.oesia.model.PortRadius;
-import com.oesia.model.SearchCriteria;
 import com.oesia.model.SedeRepository;
 import com.oesia.model.Sedes;
 import com.oesia.model.Servicio;
-import com.oesia.model.Servicio_vpnip;
 import com.oesia.model.ServiciosRepository;
-import com.oesia.model.Ciudad;
 import com.oesia.model.CiudadRepository;
-import com.oesia.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 
 @RestController
@@ -89,11 +73,19 @@ public class SearchController {
     }
      
     @PostMapping(path = "/api/canales")
-    public @ResponseBody List<?> findCanal(@RequestBody Servicio servicio){  // @RequestBody Servicio_vpnip servicio
+    public @ResponseBody List<Canal> findCanal(@RequestBody Servicio servicio){  // @RequestBody Servicio_vpnip servicio
     	
-    	List<?> servicios = serviciosRepository.findServicioSede(servicio.getServicio_sede());  //
-    	return servicios;
+    	List<Canal> respuesta =  new ArrayList<Canal>(); 
+    	List<String> servicio_ds = serviciosRepository.findServicioSede(servicio.getServicio_sede());  //	
+	
+    		for(String s : servicio_ds) {
+    			Canal ds = myRepository.findServicioBySede(s);
+    			respuesta.add(ds);
+    		}
+    	
+    	return respuesta;
     }
+    
     
     @PostMapping(path = "/api/vias")
     public  @ResponseBody List<Object> findVias(@RequestBody Canal canal){

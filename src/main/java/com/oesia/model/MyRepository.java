@@ -1,9 +1,9 @@
 package com.oesia.model;
 
 
-import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.oesia.model.Canal;
 
@@ -11,19 +11,13 @@ import com.oesia.model.Canal;
 @Repository
 public interface MyRepository extends CrudRepository<Canal, Integer>{
 	
-	@Query(value ="SELECT * FROM tb_sedes WHERE sede_cliente = ?1 GROUP BY sede_ciudad", nativeQuery = true)
-	List<Canal> findBySede(String cliente);
-	
-	@Query(value ="SELECT * FROM canal WHERE cliente = ?1 AND ciudad = ?2 GROUP BY sede", nativeQuery = true)
-	List<Sedes> findBySedeCliente(String cliente, String ciudad);
-	
-	@Query(value ="SELECT * FROM canal WHERE cliente = ?1 AND ciudad = ?2 AND sede = ?3 GROUP BY canal", nativeQuery = true)
-	List<Canal> findBySedeClienteCanal(String cliente, String ciudad, String sede);
-	
 	@Query(value ="SELECT * FROM tb_servicio_vpnip WHERE servpnip_id = ?1 GROUP BY servpnip_id", nativeQuery = true)
 	Canal findVias(int servpnip_id);
 	
 	@Query(value ="SELECT * FROM tb_servicio_vpnip WHERE servpnip_id = ?1 GROUP BY servpnip_id", nativeQuery = true)
 	Canal findViasS(String servpnip_id);
+					   // * servpnip_id, servpnip_tipo_enlace
+	@Query(value ="SELECT * FROM tb_servicio_vpnip WHERE servpnip_servicio = ?1", nativeQuery = true) // Busca canal por DS
+	Canal findServicioBySede(@Param("servpnip_servicio") String servpnip_servicio);
 }
 
