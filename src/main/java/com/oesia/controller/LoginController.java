@@ -1,22 +1,29 @@
 package com.oesia.controller;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.oesia.model.Cliente;
 import com.oesia.model.Conexion;
 import com.oesia.model.Role;
 import com.oesia.model.User;
+import com.oesia.model.UserRepository;
 import com.oesia.services.ConexionService;
 import com.oesia.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -26,6 +33,9 @@ public class LoginController {
     private UserService userService;
     @Autowired
     private ConexionService conexionService;
+    @Autowired
+    private UserRepository userRepository;
+    
 
     @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
@@ -93,6 +103,23 @@ public class LoginController {
     }
       
     
+    
+    @PostMapping(path = "/registration/usuarios")
+    public @ResponseBody List<User> getUsers() {
+    	
+    	List<User> usuarios = userRepository.findAll();
+        return usuarios;
+
+    }
+    
+    
+    @PostMapping(path = "/registration/eliminarUsuario")
+    public void deleteUser(@RequestBody User user) {
+
+    	userRepository.deleteById(user.getId());
+
+
+    }
     
     
     

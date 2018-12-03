@@ -50,12 +50,10 @@ public class SearchController {
 	
 	
     @PostMapping(path = "/api/clientes")
-
     public @ResponseBody List<Cliente> getClientes() {
 
     	List<Cliente> clientes = clienteRepository.findById();
         return clientes;
-
     }
 
     @PostMapping(path = "/api/ciudades")

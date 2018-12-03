@@ -10,7 +10,6 @@ $(document).ready(function () {
 	        $('#boton-pruebasrouter').css('cursor','wait');
 	        $('#boton-pruebasmpls').attr('disabled','disabled');
 	        $('#boton-pruebasmpls').css('cursor','wait');
-	        event.preventDefault();
 	        ajax_pruebasmpls();  
     });
     
