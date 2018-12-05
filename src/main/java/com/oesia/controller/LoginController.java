@@ -62,7 +62,7 @@ public class LoginController {
         if (userExists != null) {
             bindingResult
                     .rejectValue("email", "error.user",
-                            "There is already a user registered with the email provided");
+                            "Ya existe un usuario con esa dirección de correo!");
         }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
@@ -112,14 +112,15 @@ public class LoginController {
 
     }
     
-    
-    @PostMapping(path = "/registration/eliminarUsuario")
-    public void deleteUser(@RequestBody User user) {
+    /*
+    @PostMapping(path = "/registration/eliminarusuario")
+    public List<User> deleteUser(@RequestBody User user) {
 
     	userRepository.deleteById(user.getId());
+    	List<User> usuarios = userRepository.findAll(); //
+        return usuarios; //
 
-
-    }
+    } */
     
     
     

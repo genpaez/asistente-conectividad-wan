@@ -40,5 +40,11 @@ function ajax_eliminarusuario() {
         error: function() {
         	$("#labelEliminar").text("Error. Intente nuevamente");
         }
-    }).then(function(data) {});
+    }).then(function(data) {
+		$('#seleccionUsuario').html('');   // Deja en blanco antes de cargar desde server
+		$('#seleccionUsuario').append('<option value="">' + ' Seleccione usuario a eliminar...' + '</option>');
+		$.each(data, function(i, optionHtml){	
+          $('#seleccionUsuario').append('<option value="'+optionHtml.id+'">' + optionHtml.email + '</option>');  // Recorre array e inserta opciones
+         });
+	});
 }

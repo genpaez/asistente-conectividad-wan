@@ -17,6 +17,8 @@ import com.oesia.model.SedeRepository;
 import com.oesia.model.Sedes;
 import com.oesia.model.Servicio;
 import com.oesia.model.ServiciosRepository;
+import com.oesia.model.User;
+import com.oesia.model.UserRepository;
 import com.oesia.model.CiudadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,6 +48,8 @@ public class SearchController {
 	private ServiciosRepository serviciosRepository;
 	@Autowired
   	private ConexionRepository conexionRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 	
 	
@@ -159,6 +163,17 @@ public class SearchController {
 		
     	List<Conexion> conexion = conexionRepository.findAll();
     	return conexion;
+    }
+    
+    
+    
+    @PostMapping(path = "/registration/eliminarUsuario")
+    public List<User> deleteUser(@RequestBody User user) {
+
+    	userRepository.deleteById(user.getId());
+    	List<User> usuarios = userRepository.findAll(); //
+        return usuarios; //
+
     }
     
 }

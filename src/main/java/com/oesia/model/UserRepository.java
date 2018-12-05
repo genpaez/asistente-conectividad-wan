@@ -15,8 +15,7 @@ import org.springframework.stereotype.Repository;
 		
 	    User findByEmail(String email);
 	    
-	//    @Query(value ="DELETE FROM user WHERE user_id = ?1", nativeQuery = true) // Elimina usuario
-	//    User deleteById(int user_id);
+	    User deleteById(int user_id);
 	    
 	    List<User> findAll();
 	}

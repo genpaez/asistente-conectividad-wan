@@ -20,7 +20,6 @@ import java.util.Set;
 public class User {
 
     @Id
- //   @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private int id;
     @Column(name = "email")
@@ -39,9 +38,9 @@ public class User {
     private String lastName;
     @Column(name = "active")
     private int active;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    @ManyToMany (cascade = CascadeType.PERSIST)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id")) 
+    private Set<Role> roles; 
 
     
     public int getId() {
