@@ -52,7 +52,7 @@ function ajax_cliente() {      // onchange en select boxes
     			$('#cliente').html('');   // Deja en blanco antes de cargar desde server
     			$('#cliente').append('<option value="">' + 'Seleccione un cliente...' + '</option>');
     			$.each(data, function(i, optionHtml){	
-  	            $('#cliente').append('<option value="'+optionHtml.cliente+'">' + optionHtml.cliente_razonsocial + '</option>');  // Recorre array e inserta opciones
+  	            $('#cliente').append('<option value="'+optionHtml.cliente_nit+'">' + optionHtml.cliente_razonsocial + '</option>');  // Recorre array e inserta opciones
   	           //       dropdown.append('<option value="' + v.id + '">' + v.name + '</option>'); Notación
   	           });
     		});
@@ -76,8 +76,8 @@ function ajax_ciudad(cliente) {      // onchange en select boxes
     			$('#ciudad').html('');   // Deja en blanco antes de cargar desde server 
     			$('#ciudad').append('<option value="">' + 'Seleccione una ciudad...' + '</option>');
     			$.each(data, function(i, optionHtml){	
-  	            $('#ciudad').append('<option value="'+optionHtml[0] +'">' + optionHtml[1] + '</option>');  // Recorre array e inserta opciones
-  	            //       dropdown.append('<option value="' + v.id + '">' + v.name + '</option>'); Notación
+    			$('#ciudad').append('<option value="'+ optionHtml.ciudad_id +'">' + optionHtml.ciudad_nombre + '</option>');
+  	            // $('#ciudad').append('<option value="'+optionHtml[0] +'">' + optionHtml[1] + '</option>');  // Recorre array e inserta opciones
   	           });
     		});
 }

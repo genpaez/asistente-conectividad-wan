@@ -10,22 +10,22 @@ import javax.persistence.Table;
 public class Ciudad {
     @Id
 	@Column(name = "ciudad_id")
-	private String ciudad_id;
+	private String id;
     @Column(name = "ciudad_nombre")
-	private String ciudad_nombre;
+	private String nombre;
 	
 	
 	public String getCiudad_id() {
-		return ciudad_id;
+		return id;
 	}
 	public void setCiudad_id(String ciudad_id) {
-		this.ciudad_id = ciudad_id;
+		this.id = ciudad_id;
 	}
 	public String getCiudad_nombre() {
-		return ciudad_nombre;
+		return nombre;
 	}
 	public void setCiudad_nombre(String ciudad_nombre) {
-		this.ciudad_nombre = ciudad_nombre;
+		this.nombre = ciudad_nombre;
 	}
 
 

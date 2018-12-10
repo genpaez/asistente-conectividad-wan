@@ -13,4 +13,9 @@ public interface SedeRepository extends CrudRepository<Sedes, Integer>{
 
 	@Query(value ="SELECT * FROM tb_sedes WHERE sede_cliente = ?1 AND sede_ciudad = ?2 GROUP BY sede_nombre", nativeQuery = true)
 	List<Sedes> findSedesCliente(String sede_cliente, String sede_ciudad);
+	
+	@Query(value ="SELECT sede_ciudad FROM tb_sedes WHERE sede_cliente = ?1 GROUP BY sede_ciudad", nativeQuery = true)
+	List<String> findCiudadSede(String nit);
+	//@Param("servicio_sede")
+	
 }

@@ -3,6 +3,7 @@ package com.oesia.controller;
 
 import com.jcraft.jsch.JSchException;
 import com.oesia.model.Canal;
+import com.oesia.model.Ciudad;
 import com.oesia.model.Cliente;
 import com.oesia.model.ClienteRepository;
 import com.oesia.model.Compositor;
@@ -60,12 +61,29 @@ public class SearchController {
         return clientes;
     }
 
+    /*
     @PostMapping(path = "/api/ciudades")
     public @ResponseBody List<?> getCiudades(@RequestBody Cliente cliente){
 		
     	List<?> ciudades = ciudadRepository.findCiudadesCliente(cliente.getCliente_nit());
     	return ciudades;
     }
+    */
+    
+    @PostMapping(path = "/api/ciudades")
+    public @ResponseBody List<Ciudad> getCiudades(@RequestBody Cliente cliente){  // @RequestBody Cliente 
+    	
+    	List<Ciudad> respuesta =  new ArrayList<Ciudad>(); 
+    	List<String> ciudades = sedeRepository.findCiudadSede(cliente.getCliente_nit());  //	
+	
+    		for(String c : ciudades) {
+    			Ciudad cd = ciudadRepository.findCiudadesCliente(c);
+    			respuesta.add(cd);
+    		}
+    	
+    	return respuesta;
+    }
+    
     
     @PostMapping(path = "/api/sedes")
     public @ResponseBody List<Sedes> findSedes(@RequestBody Sedes sede){
