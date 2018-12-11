@@ -2,11 +2,8 @@ package com.oesia.controller;
 
 import java.util.List;
 import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
-import com.oesia.model.Cliente;
 import com.oesia.model.Conexion;
 import com.oesia.model.Role;
 import com.oesia.model.User;
@@ -14,13 +11,11 @@ import com.oesia.model.UserRepository;
 import com.oesia.services.ConexionService;
 import com.oesia.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;

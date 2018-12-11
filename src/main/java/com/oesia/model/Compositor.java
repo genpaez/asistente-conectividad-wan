@@ -30,9 +30,6 @@ public class Compositor {
 		ping = "ping -vpn-instance " + vprn +" "+ ipwanrouter + " detail \n\n";  // ping -vpn-instance 500100550 10.30.1.54  // Ping 
 			
 			
-			/*
-			display interface description GigabitEthernet1/0/10.1520 
-			*/
 		
 			if(enrutamiento.equals("BGP")) { //  Si tiene enrutamiento BGP
 				routing = "display bgp vpnv4 vpn-instance " + vprn + " peer \n\n"; //display bgp vpnv4 vpn-instance 500100550 peer

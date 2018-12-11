@@ -17,10 +17,6 @@ import com.jcraft.jsch.*;
 
 public class PortFR {  // conexión mpls y ejecución.
 	
-/*	private  String username = "opegpae1";
-	private  String passwordA = "Baudelaire18*", passwordB = "FN5ihAJo";
-	private  String hostA = "10.30.4.165", hostB;
-	private  int forwardedPort; */
 	private  String username = null;
 	private  String passwordA = null, passwordB = null;
 	private  String hostA = null, hostB = null;
@@ -55,7 +51,6 @@ public class PortFR {  // conexión mpls y ejecución.
 	        config.put("StrictHostKeyChecking", "no");
 	        sessionA.setConfig(config);
 	        sessionA.setPassword(passwordA);
-	//        forwardedPort = 2222;                //  **** Puerto local ! ****
         	sessionA.setPortForwardingL(forwardedPort, hostB, 22);	// puerto para tunel hacia hostB
 	        sessionA.connect(10000);
 	        sessionA.openChannel("direct-tcpip"); //***************** // Shell/Exc/TCP 

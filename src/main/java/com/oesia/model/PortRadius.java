@@ -17,9 +17,6 @@ import com.jcraft.jsch.*;
 
 public class PortRadius {
 	
-//	private  String usernameradius = "gics", userrouter = "ivbohorquezro";
-//	private  String passwordradius = "t3l3c0m", passwordrouter = "2W24K7XY";
-//	private  String hostA = "10.201.136.103", loopback;
 	private  String usernameradius = null, userrouter = null;
 	private  String passwordradius = null, passwordrouter = null;
 	private  String hostA =  null, loopback = null;
@@ -55,7 +52,6 @@ public class PortRadius {
 	        config.put("StrictHostKeyChecking", "no");
 	        sessionA.setConfig(config);
 	        sessionA.setPassword(passwordradius);
-	  //      forwardedPort = 23;                     //  **** Puerto local ! ****
         	sessionA.setPortForwardingL(forwardedPort, loopback, 22);	// puerto para tunel hacia hostB
 	        sessionA.connect(25000);
 	        sessionA.openChannel("direct-tcpip"); //***************** // Shell/Exc/TCP 
@@ -74,7 +70,6 @@ public class PortRadius {
 	 
 	 public void sesionB() throws IOException, InterruptedException {
 			
-
 			try {
 				sessionB = jSch.getSession(userrouter, "localhost", forwardedPort);
 
