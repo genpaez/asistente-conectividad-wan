@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -61,14 +63,6 @@ public class SearchController {
         return clientes;
     }
 
-    /*
-    @PostMapping(path = "/api/ciudades")
-    public @ResponseBody List<?> getCiudades(@RequestBody Cliente cliente){
-		
-    	List<?> ciudades = ciudadRepository.findCiudadesCliente(cliente.getCliente_nit());
-    	return ciudades;
-    }
-    */
     
     @PostMapping(path = "/api/ciudades")
     public @ResponseBody List<Ciudad> getCiudades(@RequestBody Cliente cliente){  // @RequestBody Cliente 
@@ -81,6 +75,13 @@ public class SearchController {
     			respuesta.add(cd);
     		}
     	
+    			Collections.sort(respuesta, new Comparator<Ciudad>() {
+    			   @Override
+    			   public int compare(Ciudad c1, Ciudad c2) {    // Ordena la respuesta
+    			      return c1.getCiudad_nombre().compareTo(c2.getCiudad_nombre());
+    			   }
+    			});
+    		
     	return respuesta;
     }
     
@@ -92,6 +93,7 @@ public class SearchController {
     	return sedes;
     }
      
+    
     @PostMapping(path = "/api/canales")
     public @ResponseBody List<Canal> findCanal(@RequestBody Servicio servicio){  // @RequestBody Servicio_vpnip servicio
     	
@@ -150,7 +152,7 @@ public class SearchController {
     
     @PostMapping(path = "/api/pruebasrouter")
     public List<String> pruebasRouter(@RequestBody String[] vias) throws IOException, InterruptedException{
-    	//[$('#loopback').text(),  $('#enrutamiento').text(), $('#ipserverradius').text(), $('#userradius').text(), $('#claveradius').text(), $('#puertolocalradius').text(), $('#userrouter').text(), $('#claverouter').text()];
+    	//Recibe arreglo String[] = [$('#loopback').text(),  $('#enrutamiento').text(), $('#ipserverradius').text(), $('#userradius').text(), $('#claveradius').text(), $('#puertolocalradius').text(), $('#userrouter').text(), $('#claverouter').text()];
     	
     	List<String> respuesta = new ArrayList<String>(); 	
     	

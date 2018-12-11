@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-// AUTO IMPLEMENTED by Spring into a Bean called userRepository@
+// Spring implementa un bean sedeRepository@
 @Repository
 public interface SedeRepository extends CrudRepository<Sedes, Integer>{
 
@@ -16,6 +16,5 @@ public interface SedeRepository extends CrudRepository<Sedes, Integer>{
 	
 	@Query(value ="SELECT sede_ciudad FROM tb_sedes WHERE sede_cliente = ?1 GROUP BY sede_ciudad", nativeQuery = true)
 	List<String> findCiudadSede(String nit);
-	//@Param("servicio_sede")
-	
+
 }
