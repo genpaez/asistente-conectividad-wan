@@ -107,16 +107,6 @@ public class LoginController {
 
     }
     
-    /*
-    @PostMapping(path = "/registration/eliminarusuario")
-    public List<User> deleteUser(@RequestBody User user) {
-
-    	userRepository.deleteById(user.getId());
-    	List<User> usuarios = userRepository.findAll(); //
-        return usuarios; //
-
-    } */
-    
     
     
     @RequestMapping(value="/access-denied", method = RequestMethod.GET)
@@ -144,13 +134,12 @@ public class LoginController {
     	User user = userService.findUserByEmail(auth.getName());
     	Set<Role> role = user.getRoles();
     	for (Role rol : role) {tipoUsuario = rol.getRole();}
-
-       //  if (request.isUserInRole("USUARIO")) 
         	 
-    	if (tipoUsuario.contentEquals("USUARIO")){
-    		
-             return "redirect:/index";
-         }
+	    	if (tipoUsuario.contentEquals("USUARIO")){
+	    		
+	             return "redirect:/index";
+	         }
+
          return "redirect:/registration";
      }
     

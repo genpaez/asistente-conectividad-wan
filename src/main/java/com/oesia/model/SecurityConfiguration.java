@@ -15,22 +15,22 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {      
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;    // Cifrado
 
     @Autowired
-    private DataSource dataSource;
+    private DataSource dataSource;    // Referencia en archivo application-properties
 
-    @Value("${spring.queries.users-query}")
+    @Value("${spring.queries.users-query}") // Referencia en archivo application-properties Query
     private String usersQuery;
 
-    @Value("${spring.queries.roles-query}")
+    @Value("${spring.queries.roles-query}") // Referencia en archivo application-properties Query
     private String rolesQuery;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
+    protected void configure(AuthenticationManagerBuilder auth)  // Sobre escribe método configure e inicializa valores para permisos de usuarios
             throws Exception {
         auth.
                 jdbcAuthentication()
@@ -41,21 +41,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception {   // Se definen los permisos
 
         http
         	    .csrf().disable()
                 .authorizeRequests()
-                		
+                	.antMatchers("/").permitAll()
                 	.antMatchers("/error").permitAll()
-                	.antMatchers("/configuracion").permitAll()
-                	.antMatchers("/index").permitAll()
-         //       	.antMatchers("/index").hasAuthority("USUARIO")
                 	.antMatchers("/index/").denyAll()
-       //         	.antMatchers("/registration").hasAuthority("ADMIN").anyRequest()
-       //         	.authenticated()
-      //          	.antMatchers("/configuracion").hasAuthority("ADMIN").anyRequest()
-         //       	.authenticated()
+                	.antMatchers("/index").hasAuthority("USUARIO")
+                	.antMatchers("/registration").hasAuthority("ADMIN")
+                	.antMatchers("/configuracion").hasAuthority("ADMIN").anyRequest()
+                	.authenticated()
                 	
                 .and()
                 	.csrf().disable()

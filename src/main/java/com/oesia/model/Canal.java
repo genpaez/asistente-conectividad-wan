@@ -11,7 +11,6 @@ import javax.persistence.Table;
 public class Canal { //Serializable*
 	
 	@Id
-//    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "servpnip_id")
 	int id;
 	@Column(name = "servpnip_pe")
