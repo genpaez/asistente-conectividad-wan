@@ -11,7 +11,7 @@ public class Compositor {
 	
 	
 
-	public List<String> crearComandos(String nombre_pe, String vprn, String ipwanpe, String ipwanrouter, String puertope, String enrutamiento){
+	public List<String> crearComandos(String nombre_pe, String vprn, String ipwanpe, String ipwanrouter, String puertope, String enrutamiento) throws InterruptedException{
 		
 		
 		// *Si es PE huawei*
@@ -20,14 +20,14 @@ public class Compositor {
 			
 			
 			if(puertope.contains(".")){
-			String[] sap = puertope.split("."); 
+			String[] sap = puertope.split("\\."); 
 			sap_pre = sap[0];  // Elimina VLAN de SAP, dejando solo el puerto	
 			}
 			else {sap_pre = puertope;} //Si no tiene el separador lo toma literal
 			
 		interfaz = "display interface " + puertope + "\n\n"; // display interface GigabitEthernet1/0/10.1520 // Estado de la interfaz en PE
 		detallepuerto = "display interface " + sap_pre + "\n \n \n"; // display interface GigabitEthernet1/0/10  // Ver interconexión (Requiere salto línea) 
-		ping = "ping -vpn-instance " + vprn +" "+ ipwanrouter + " detail \n\n";  // ping -vpn-instance 500100550 10.30.1.54  // Ping 
+		ping = "ping -vpn-instance " + vprn +" "+ ipwanrouter + "\n\n";  // ping -vpn-instance 500100550 10.30.1.54  // Ping 
 			
 			
 		
@@ -40,11 +40,15 @@ public class Compositor {
 			else if(enrutamiento.equals("Estatico")) { //  Si tiene enrutamiento Estático ´
 				routing = "display static-route ldp-sync \n\n";
 			}
-		
+			
+
+			comandos.add("\n \n");
 			comandos.add(interfaz);
+			comandos.add("\n");
 			comandos.add(detallepuerto);
-			comandos.add("x \n \n");
+			comandos.add("\n");
 			comandos.add(routing);
+			comandos.add("\n");
 			comandos.add(ping);
 		
 			return comandos;   // retorna comandos para pe huawei
@@ -88,7 +92,7 @@ public class Compositor {
 
 
 
-	public List<String> comandosRouter(String enrutamiento) {
+	public List<String> comandosRouter(String enrutamiento) throws InterruptedException {
 		
 		String routing = null;
 		if(enrutamiento.equals("BGP")) {routing = "show bgp summary | exclude BGP";}
@@ -101,7 +105,7 @@ public class Compositor {
 		String intBrief = "show ip int brief";
 		
 
-		
+		comandos.add("\n");
 		comandos.add(uptime);
 		comandos.add("\n \n \n \n");
 		comandos.add(restartCause);
@@ -111,6 +115,7 @@ public class Compositor {
 		comandos.add(intTraffic);
 		comandos.add("\n \n \n \n");
 		comandos.add(intBrief);
+		comandos.add("\n");
 		
 		return comandos;
 	}

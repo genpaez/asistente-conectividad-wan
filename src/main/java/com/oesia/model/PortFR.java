@@ -76,7 +76,7 @@ public class PortFR {  // conexión mpls y ejecución.
 		        config.put("StrictHostKeyChecking", "no");
 		        sessionB.setConfig(config);
 		        sessionB.setPassword(passwordB);
-				sessionB.connect(10000);
+				sessionB.connect();
 				
 			      if(sessionB.isConnected()) {
 			         System.out.println("Connected host B!"); 		            
