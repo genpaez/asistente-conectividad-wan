@@ -145,7 +145,9 @@ public class SearchController {
     	List<String> comandos = myComposer.crearComandos(pe.getNombre_pe(), vias.getVprn(), vias.getIpwan_pe(), vias.getIpwan_router(), vias.getPuertope(), vias.getEnrutamiento());
         respuesta = man.execute(comandos);
     	man.close();
-    	
+    	vias1 = null;
+    	pe = null;
+    	nodo = null;
     	return respuesta;
     	
     }
@@ -174,6 +176,8 @@ public class SearchController {
     	List<String> comandos = myComposer.comandosRouter(vias[1]); // Argumento = Enrutamiento
         List<String> respuestarouter = man.execute(comandos);
     	man.close();
+    	vias[0] = null;
+    	vias = null;
     	return respuestarouter; 
     }
     

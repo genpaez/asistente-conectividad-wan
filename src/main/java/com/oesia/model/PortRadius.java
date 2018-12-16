@@ -23,7 +23,7 @@ public class PortRadius {
 	private  int forwardedPort;
 	private  Session sessionA;
 	private  Session sessionB;
-	private  JSch jSch = new JSch();
+	private  JSch jSch;
 
 
 	//[$('#loopback').text(), $('#ipserverradius').text(), $('#userradius').text(), $('#claveradius').text(), $('#puertolocalradius').text(), $('#userrouter').text(), $('#claverouter').text()];
@@ -35,7 +35,8 @@ public class PortRadius {
 		this.usernameradius = usernameradius;
 		this.passwordradius = passwordradius;
 		this.userrouter = userrouter;
-		this.passwordrouter = passwordrouter;		
+		this.passwordrouter = passwordrouter;	
+		jSch = new JSch();
 	}
 
 	public void conectar() throws IOException, InterruptedException, JSchException{
@@ -146,16 +147,15 @@ public class PortRadius {
 		     
 
 		             
-			  for(int x=0;x<70;x++)
+			  for(int x=0;x<75;x++)
 		      {
 		    	  received=br.readLine();
-		    	    
 
 		          try{Thread.sleep(10);}catch(Exception ee){}
-		          
+		          	
 		    	    respuesta.add(received+"\n");
-
 		      }
+			  	
 				return respuesta;
 		}
 		
@@ -164,6 +164,7 @@ public class PortRadius {
 	public void close() {
 	      sessionA.disconnect();    // libera recursos
 	      sessionB.disconnect();
+	      jSch = null;
 	}
 
 }

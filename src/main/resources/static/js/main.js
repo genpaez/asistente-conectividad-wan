@@ -22,6 +22,7 @@ $(document).ready(function () {
         $('#boton-pruebasmpls').attr('disabled','disabled');
         $('#boton-pruebasmpls').css('cursor','wait');
         ajax_pruebasrouter();
+
     }); 
 
 });
@@ -204,6 +205,7 @@ function ajax_pruebasmpls() {     // boton pruebas mpls
         },
         error: function() {
             $("#loadmpls").hide();
+            $("#clipboard").hide();
             $('#mpls_response').html('');
             $("#mpls_response").append("Error al procesar su solicitud. Verifique la información del canal y puertos configurados en la aplicación");
 			$('#boton-pruebasmpls').removeAttr('disabled');
@@ -216,14 +218,18 @@ function ajax_pruebasmpls() {     // boton pruebas mpls
     			$('#mpls_response').html('');
     			$.each(data, function(i, optionHtml){	
     				
-      	            $('#mpls_response').append(optionHtml);  // Recorre array e inserta opciones
+      	            	$('#mpls_response').append(optionHtml);  // Recorre array e inserta opciones
+      	            	
       	           });
     			$('#boton-pruebasmpls').removeAttr('disabled');
     			$('#boton-pruebasmpls').css('cursor','pointer');
     			$('#boton-pruebasrouter').removeAttr('disabled'); 
     			$('#boton-pruebasrouter').css('cursor','pointer');
     		});
+    
+    
 }
+
 
 
 
@@ -251,6 +257,7 @@ function ajax_pruebasrouter() {     // boton pruebas router
         },        
         error: function() {
             $("#loadrouter").hide();
+            $("#clipboardrouter").hide();
             $('#router_response').html('');
             $("#router_response").append("Error al procesar su solicitud. Verifique la información del canal y puertos configurados en la aplicación");
 			$('#boton-pruebasmpls').removeAttr('disabled');
@@ -263,7 +270,8 @@ function ajax_pruebasrouter() {     // boton pruebas router
 				$('#router_response').html('');
     			$.each(data, function(i, optionHtml){	
 
-      	          $('#router_response').append(optionHtml);  // Recorre array e inserta opciones
+      	          		$('#router_response').append(optionHtml);  // Recorre array e inserta opciones
+
       	           });
     			$('#boton-pruebasrouter').removeAttr('disabled'); 
     			$('#boton-pruebasrouter').css('cursor','pointer');

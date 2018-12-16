@@ -86,6 +86,7 @@ public class Compositor {
 		comandos.add(puerto);
 		comandos.add("x \n \n");
 		comandos.add(ping);
+		comandos.add("\n \n");
 
 		return comandos; // retorna comandos para pe 
 	}
@@ -107,15 +108,17 @@ public class Compositor {
 
 		comandos.add("\n");
 		comandos.add(uptime);
-		comandos.add("\n \n \n \n");
+		comandos.add("\n \n");
 		comandos.add(restartCause);
-		comandos.add("\n \n \n \n");
+		comandos.add("\n \n");
 		comandos.add(routing);
-		comandos.add("\n \n \n \n");
+		comandos.add("\n \n");
 		comandos.add(intTraffic);
-		comandos.add("\n \n \n \n");
+		comandos.add(" ");
+		comandos.add("\n \n");
 		comandos.add(intBrief);
-		comandos.add("\n");
+		comandos.add(" ");
+		comandos.add("\n \n \n \n");
 		
 		return comandos;
 	}

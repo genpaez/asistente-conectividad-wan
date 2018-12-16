@@ -21,7 +21,7 @@ public class PortFR {  // conexión mpls y ejecución.
 	private  String passwordA = null, passwordB = null;
 	private  String hostA = null, hostB = null;
 	private  int forwardedPort;
-	private  JSch jSch = new JSch();
+	private  JSch jSch;
 	private  Session sessionA;
 	private  Session sessionB;
 
@@ -35,6 +35,7 @@ public class PortFR {  // conexión mpls y ejecución.
 		 this.username = username;
 		 this.passwordA = passwordA;
 		 this.passwordB = passwordB;
+		 jSch = new JSch();  // Objeto ssh 
 
 	}
 
@@ -168,6 +169,8 @@ public class PortFR {  // conexión mpls y ejecución.
 	public void close() {
 	      sessionA.disconnect();    // libera recursos
 	      sessionB.disconnect();
+		  hostB = null; // pe en mpls
+		  jSch = null;
 	}
 
 }
